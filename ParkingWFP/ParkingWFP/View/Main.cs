@@ -5,18 +5,18 @@
 using System;
 using System.Windows.Forms;
 
-using ParkingWFP.View.Access;
-
 namespace ParkingWFP
 {
-    static class Program
+    public partial class Main : Form
     {
-        [STAThread]
-        static void Main()
+        public Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            InitializeComponent();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
