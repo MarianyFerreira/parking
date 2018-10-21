@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* *************************************************************************************************
+*                       Copyright © 2018 MYF Sotwares. All rights reserved. 
+* *********************************************************************************************** */
+
+using System;
 using System.Windows.Forms;
 
 namespace ParkingWFP
@@ -15,6 +12,11 @@ namespace ParkingWFP
         public Main()
         {
             InitializeComponent();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
