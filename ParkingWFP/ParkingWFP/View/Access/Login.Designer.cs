@@ -69,6 +69,7 @@
             this.txb_password.Font = new System.Drawing.Font("Arial Narrow", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txb_password.Location = new System.Drawing.Point(119, 105);
             this.txb_password.Name = "txb_password";
+            this.txb_password.PasswordChar = '*';
             this.txb_password.Size = new System.Drawing.Size(232, 28);
             this.txb_password.TabIndex = 4;
             // 
@@ -93,6 +94,8 @@
             this.Controls.Add(this.txb_username);
             this.Controls.Add(this.lbl_username);
             this.Name = "Login";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
