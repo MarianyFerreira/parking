@@ -1,5 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿/* *************************************************************************************************
+*                       Copyright © 2018 MYF Sotwares. All rights reserved. 
+* *********************************************************************************************** */
+
+using System;
 using System.Windows.Forms;
 using ParkingWFP.Model;
 
@@ -7,6 +10,7 @@ namespace ParkingWFP.View.Access
 {
     public partial class Login : Form
     {
+        User user = new User();
         public Login()
         {
             InitializeComponent();
@@ -14,13 +18,15 @@ namespace ParkingWFP.View.Access
 
         public bool checkForm()
         {
-            if (string.IsNullOrWhiteSpace(txb_username.Text))
+            var username = txb_username.Text.Trim();
+            var password = txb_password.Text.Trim();
+            if (string.IsNullOrWhiteSpace(username))
             {
                 MessageBox.Show($"Nome de usuário é um campo obrigatório");
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txb_password.Text))
+            if (string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show($"Senha é um campo obrigatório");
                 return false;
@@ -28,40 +34,23 @@ namespace ParkingWFP.View.Access
 
             return true;
         }
- 
-        public bool checkUser(User user)
+
+        public bool isValidUser(User user)
         {
             if (user == null)
             {
-                MessageBox.Show($"Nome de usuário {txb_username.Text} não encontrado");
+                MessageBox.Show($"Usuário não encontrado");
                 return false;
             }
-
-            return true;
-        }
-
-        public bool checkPassword(User user)
-        {
-            if (user.Password != txb_password.Text)
+            var password = txb_password.Text.Trim();
+            if (user.Password != password)
             {
                 MessageBox.Show($"A senha digitada está incorreta");
                 return false;
             }
             return true;
         }
- 
-        public User getUserByUsername(string Username)
-        {
-            User user;
-            using (var db = new ParkingContext())
-            {
-                user = db.User
-                    .Where(dbUser => dbUser.Username == Username)
-                    .FirstOrDefault();
-            }
 
-            return user;
-        }
 
         private void btn_login_Click(object sender, EventArgs e)
         {
@@ -70,11 +59,16 @@ namespace ParkingWFP.View.Access
                 return;
             }
 
-            User user = getUserByUsername(txb_username.Text);
+            var username = txb_username.Text.Trim();
+            user = user.LoadUserByUsername(username);
 
-            if (checkUser(user) && checkPassword(user))
+            if (isValidUser(user))
             {
-                MessageBox.Show($"Nome de usuário {txb_username.Text} e senha OK");
+                Application.Run(new Main());
+            }
+            else
+            {
+                MessageBox.Show($"ERRO: Problema ao efetuar o Login");
             }
         }
     }

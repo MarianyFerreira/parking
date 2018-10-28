@@ -21,8 +21,7 @@ namespace ParkingWFP.Model
             // modelBuilder.Entity<OrderDetail>()
             // .HasKey(p => new { p.OrderID, p.ProductID });
         }
-
-        public DbSet<AccessType> AccessType { get; set; }
+        
         public DbSet<User> User { get; set; }
 
         public DbSet<Printer> Printer { get; set; }

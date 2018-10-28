@@ -5,6 +5,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
@@ -27,5 +29,58 @@ namespace ParkingWFP.Model
         public DateTime CreatedAt { get; set; }
         [Required]
         public DateTime UpdatedAt { get; set; }
+
+        private bool CheckPrinter(Printer newPrinter)
+        {
+            if (string.IsNullOrWhiteSpace(newPrinter.Model))
+            {
+                MessageBox.Show($"Modelo é um campo obrigatório");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(newPrinter.Host))
+            {
+                MessageBox.Show($"Host é um campo obrigatório");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(newPrinter.Port))
+            {
+                MessageBox.Show($"Porta é um campo obrigatório");
+                return false;
+            }
+
+            return true;
+        }
+
+        public Printer LoadPrinter()
+        {
+            using (var db = new ParkingContext())
+            {
+                return db.Printer.FirstOrDefault();
+            }
+        }
+
+        public void UpdatePrinter(Printer newPrinter)
+        {
+            CheckPrinter(newPrinter);
+
+            using (var db = new ParkingContext())
+            {
+                db.Printer.Update(newPrinter);
+
+                var count = db.SaveChanges();
+                if (count == 1)
+                {
+                    MessageBox.Show($"Cadastro de impressora atualizado");
+                }
+                else
+                {
+                    MessageBox.Show($"ERRO: Não foi possível atualizar os dados da Impressora");
+                }
+            }
+
+            return;
+        }
     }
 }
