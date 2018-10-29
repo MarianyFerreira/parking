@@ -7,70 +7,47 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
-    [Table("User")]
-    public class User
+    [Table("VehicleModel")]
+    public class VehicleModel
     {
         [Key]
-        public int IdUser { get; set; }
+        public int IdVehicleModel { get; set; }
+        [Required]
+        public string Model { get; set; }
 
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required]
-        public string Fullname { get; set; }
-        [Required]
-        public bool Enabled { get; set; }
-        [Required]
-        public string AccessType { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
         [Required]
         public DateTime UpdatedAt { get; set; }
 
-
-        public List<User> LoadUsersToList()
+        public List<VehicleModel> LoadVehicleModelsToList()
         {
             using (var db = new ParkingContext())
             {
-                return db.User.ToList();
+                return db.VehicleModel.ToList();
             }
         }
 
-        public User LoadUserById(int id)
+        public VehicleModel LoadVehicleModelById(int id)
         {
             using (var db = new ParkingContext())
             {
-                return db.User.Where(dbUser =>
-                    dbUser.IdUser == id
+                return db.VehicleModel.Where(dbVehicleModel =>
+                    dbVehicleModel.IdVehicleModel == id
                 ).FirstOrDefault();
             }
         }
 
-        public User LoadUserByUsername(string username)
+        public bool ExistsVehicleModel(string model)
         {
             using (var db = new ParkingContext())
             {
-                return db.User
-                    .Where(dbUser => dbUser.Username == username)
-                    .FirstOrDefault();
-            }
-        }
-
-        public bool ExistsUsername(string username)
-        {
-            using (var db = new ParkingContext())
-            {
-                var user = db.User
-                    .Where(dbUser => dbUser.Username == username)
+                var user = db.VehicleModel
+                    .Where(dbVehicleModel => dbVehicleModel.Model == model)
                     .FirstOrDefault();
 
                 if (user != null)
@@ -81,11 +58,12 @@ namespace ParkingWFP.Model
             return false;
         }
 
-        public bool InsertUser(User user)
+        public bool RemoveVehicleModel(VehicleModel vehicleModel)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Add(user);
+                db.VehicleModel.Remove(vehicleModel);
+
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
@@ -96,11 +74,11 @@ namespace ParkingWFP.Model
             return false;
         }
 
-        public bool UpdateUser(User user)
+        public bool InsertVehicleModel(VehicleModel vehicleModel)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Update(user);
+                db.VehicleModel.Add(vehicleModel);
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
@@ -110,13 +88,12 @@ namespace ParkingWFP.Model
 
             return false;
         }
- 
-        public bool RemoveUser(User user)
+
+        public bool UpdateVehicleModel(VehicleModel vehicleModel)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Remove(user);
-
+                db.VehicleModel.Update(vehicleModel);
                 var count = db.SaveChanges();
                 if (count == 1)
                 {

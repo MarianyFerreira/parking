@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParkingWFP.Model;
@@ -9,15 +10,54 @@ using ParkingWFP.Model;
 namespace ParkingWFP.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    partial class ParkingContextModelSnapshot : ModelSnapshot
+    [Migration("20181029030424_add colors to parking")]
+    partial class addcolorstoparking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("ParkingWFP.Model.Category", b =>
+                {
+                    b.Property<int>("IdCategory")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("Tolerance");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<double>("Value");
+
+                    b.HasKey("IdCategory");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("ParkingWFP.Model.Color", b =>
+                {
+                    b.Property<int>("IdColor")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.HasKey("IdColor");
+
+                    b.ToTable("Color");
+                });
 
             modelBuilder.Entity("ParkingWFP.Model.Printer", b =>
                 {
@@ -75,61 +115,6 @@ namespace ParkingWFP.Migrations
                     b.HasKey("IdUser");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("ParkingWFP.Model.VehicleCategory", b =>
-                {
-                    b.Property<int>("IdVehicleCategory")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Category")
-                        .IsRequired();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<int>("Tolerance");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.Property<double>("Value");
-
-                    b.HasKey("IdVehicleCategory");
-
-                    b.ToTable("VehicleCategory");
-                });
-
-            modelBuilder.Entity("ParkingWFP.Model.VehicleColor", b =>
-                {
-                    b.Property<int>("IdVehicleColor")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Color")
-                        .IsRequired();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.HasKey("IdVehicleColor");
-
-                    b.ToTable("VehicleColor");
-                });
-
-            modelBuilder.Entity("ParkingWFP.Model.VehicleModel", b =>
-                {
-                    b.Property<int>("IdVehicleModel")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<string>("Model")
-                        .IsRequired();
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.HasKey("IdVehicleModel");
-
-                    b.ToTable("VehicleModel");
                 });
 #pragma warning restore 612, 618
         }

@@ -31,6 +31,15 @@
             this.btn_clearUsersForm = new System.Windows.Forms.Button();
             this.btn_removeUser = new System.Windows.Forms.Button();
             this.grid_users = new System.Windows.Forms.DataGridView();
+            this.IdUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Password = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fullname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isEnabled = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccessType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UpdatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_saveUser = new System.Windows.Forms.Button();
             this.cbx_accessType = new System.Windows.Forms.ComboBox();
             this.lbl_userAccess = new System.Windows.Forms.Label();
@@ -50,17 +59,8 @@
             this.panel_usersCrudTextBoxes = new System.Windows.Forms.Panel();
             this.panel_usersCrudLabels = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lbl_usersTitle = new System.Windows.Forms.Label();
+            this.lbl_title = new System.Windows.Forms.Label();
             this.panel_userslist = new System.Windows.Forms.Panel();
-            this.IdUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Password = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fullname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isEnabled = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccessType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UpdatedAt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grid_users)).BeginInit();
             this.panel_usersCrud.SuspendLayout();
             this.panel_usersCrudTextBoxes.SuspendLayout();
@@ -113,12 +113,68 @@
             this.CreatedAt,
             this.UpdatedAt});
             this.grid_users.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid_users.GridColor = System.Drawing.SystemColors.InactiveBorder;
             this.grid_users.Location = new System.Drawing.Point(0, 0);
             this.grid_users.Name = "grid_users";
             this.grid_users.RowTemplate.Height = 24;
-            this.grid_users.Size = new System.Drawing.Size(971, 254);
+            this.grid_users.Size = new System.Drawing.Size(971, 275);
             this.grid_users.TabIndex = 11;
             this.grid_users.DoubleClick += new System.EventHandler(this.grid_users_DoubleClick);
+            // 
+            // IdUser
+            // 
+            this.IdUser.DataPropertyName = "IdUser";
+            this.IdUser.HeaderText = "Código";
+            this.IdUser.Name = "IdUser";
+            // 
+            // Username
+            // 
+            this.Username.DataPropertyName = "Username";
+            this.Username.HeaderText = "Usuário";
+            this.Username.Name = "Username";
+            // 
+            // Email
+            // 
+            this.Email.DataPropertyName = "Email";
+            this.Email.HeaderText = "Email";
+            this.Email.Name = "Email";
+            // 
+            // Password
+            // 
+            this.Password.DataPropertyName = "Password";
+            this.Password.HeaderText = "Senha";
+            this.Password.Name = "Password";
+            this.Password.Visible = false;
+            // 
+            // Fullname
+            // 
+            this.Fullname.DataPropertyName = "Fullname";
+            this.Fullname.HeaderText = "Nome Completo";
+            this.Fullname.Name = "Fullname";
+            // 
+            // isEnabled
+            // 
+            this.isEnabled.DataPropertyName = "Enabled";
+            this.isEnabled.HeaderText = "Ativo";
+            this.isEnabled.Name = "isEnabled";
+            // 
+            // AccessType
+            // 
+            this.AccessType.DataPropertyName = "AccessType";
+            this.AccessType.HeaderText = "Tipo de Acesso";
+            this.AccessType.Name = "AccessType";
+            // 
+            // CreatedAt
+            // 
+            this.CreatedAt.DataPropertyName = "CreatedAt";
+            this.CreatedAt.HeaderText = "Data de Criação";
+            this.CreatedAt.Name = "CreatedAt";
+            // 
+            // UpdatedAt
+            // 
+            this.UpdatedAt.DataPropertyName = "UpdatedAt";
+            this.UpdatedAt.HeaderText = "Data de Atualização";
+            this.UpdatedAt.Name = "UpdatedAt";
             // 
             // btn_saveUser
             // 
@@ -285,7 +341,7 @@
             this.panel_usersCrud.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_usersCrud.Location = new System.Drawing.Point(0, 0);
             this.panel_usersCrud.Name = "panel_usersCrud";
-            this.panel_usersCrud.Size = new System.Drawing.Size(971, 406);
+            this.panel_usersCrud.Size = new System.Drawing.Size(971, 385);
             this.panel_usersCrud.TabIndex = 42;
             // 
             // panel_usersCrudTextBoxes
@@ -312,14 +368,14 @@
             this.panel_usersCrudTextBoxes.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel_usersCrudTextBoxes.Location = new System.Drawing.Point(0, 50);
             this.panel_usersCrudTextBoxes.Name = "panel_usersCrudTextBoxes";
-            this.panel_usersCrudTextBoxes.Size = new System.Drawing.Size(971, 356);
+            this.panel_usersCrudTextBoxes.Size = new System.Drawing.Size(971, 335);
             this.panel_usersCrudTextBoxes.TabIndex = 42;
             // 
             // panel_usersCrudLabels
             // 
             this.panel_usersCrudLabels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.panel_usersCrudLabels.Controls.Add(this.pictureBox1);
-            this.panel_usersCrudLabels.Controls.Add(this.lbl_usersTitle);
+            this.panel_usersCrudLabels.Controls.Add(this.lbl_title);
             this.panel_usersCrudLabels.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_usersCrudLabels.Location = new System.Drawing.Point(0, 0);
             this.panel_usersCrudLabels.Name = "panel_usersCrudLabels";
@@ -337,80 +393,26 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // lbl_usersTitle
+            // lbl_title
             // 
-            this.lbl_usersTitle.AutoSize = true;
-            this.lbl_usersTitle.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_usersTitle.ForeColor = System.Drawing.Color.White;
-            this.lbl_usersTitle.Location = new System.Drawing.Point(60, 9);
-            this.lbl_usersTitle.Name = "lbl_usersTitle";
-            this.lbl_usersTitle.Size = new System.Drawing.Size(134, 35);
-            this.lbl_usersTitle.TabIndex = 0;
-            this.lbl_usersTitle.Text = "Usuários";
+            this.lbl_title.AutoSize = true;
+            this.lbl_title.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_title.ForeColor = System.Drawing.Color.White;
+            this.lbl_title.Location = new System.Drawing.Point(60, 9);
+            this.lbl_title.Name = "lbl_title";
+            this.lbl_title.Size = new System.Drawing.Size(134, 35);
+            this.lbl_title.TabIndex = 0;
+            this.lbl_title.Text = "Usuários";
             // 
             // panel_userslist
             // 
             this.panel_userslist.Controls.Add(this.grid_users);
             this.panel_userslist.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_userslist.Location = new System.Drawing.Point(0, 406);
+            this.panel_userslist.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel_userslist.Location = new System.Drawing.Point(0, 385);
             this.panel_userslist.Name = "panel_userslist";
-            this.panel_userslist.Size = new System.Drawing.Size(971, 254);
+            this.panel_userslist.Size = new System.Drawing.Size(971, 275);
             this.panel_userslist.TabIndex = 2;
-            // 
-            // IdUser
-            // 
-            this.IdUser.DataPropertyName = "IdUser";
-            this.IdUser.HeaderText = "Código";
-            this.IdUser.Name = "IdUser";
-            // 
-            // Username
-            // 
-            this.Username.DataPropertyName = "Username";
-            this.Username.HeaderText = "Usuário";
-            this.Username.Name = "Username";
-            // 
-            // Email
-            // 
-            this.Email.DataPropertyName = "Email";
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            // 
-            // Password
-            // 
-            this.Password.DataPropertyName = "Password";
-            this.Password.HeaderText = "Senha";
-            this.Password.Name = "Password";
-            this.Password.Visible = false;
-            // 
-            // Fullname
-            // 
-            this.Fullname.DataPropertyName = "Fullname";
-            this.Fullname.HeaderText = "Nome Completo";
-            this.Fullname.Name = "Fullname";
-            // 
-            // isEnabled
-            // 
-            this.isEnabled.DataPropertyName = "Enabled";
-            this.isEnabled.HeaderText = "Ativo";
-            this.isEnabled.Name = "isEnabled";
-            // 
-            // AccessType
-            // 
-            this.AccessType.DataPropertyName = "AccessType";
-            this.AccessType.HeaderText = "Tipo de Acesso";
-            this.AccessType.Name = "AccessType";
-            // 
-            // CreatedAt
-            // 
-            this.CreatedAt.DataPropertyName = "CreatedAt";
-            this.CreatedAt.HeaderText = "Data de Criação";
-            this.CreatedAt.Name = "CreatedAt";
-            // 
-            // UpdatedAt
-            // 
-            this.UpdatedAt.DataPropertyName = "UpdatedAt";
-            this.UpdatedAt.HeaderText = "Data de Atualização";
-            this.UpdatedAt.Name = "UpdatedAt";
             // 
             // UsersCrud
             // 
@@ -461,7 +463,7 @@
         private System.Windows.Forms.Panel panel_usersCrudLabels;
         private System.Windows.Forms.Panel panel_usersCrudTextBoxes;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lbl_usersTitle;
+        private System.Windows.Forms.Label lbl_title;
         private System.Windows.Forms.DataGridViewTextBoxColumn IdUser;
         private System.Windows.Forms.DataGridViewTextBoxColumn Username;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;

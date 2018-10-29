@@ -26,9 +26,9 @@ namespace ParkingWFP.Model
 
         public DbSet<Printer> Printer { get; set; }
 
-        //public DbSet<VehicleCategory> VehicleCategory { get; set; }
-        //public DbSet<VehicleMark> VehicleMark { get; set; }
-        //public DbSet<VehicleModel> VehicleModel { get; set; }
+        public DbSet<VehicleCategory> VehicleCategory { get; set; }
+        public DbSet<VehicleColor> VehicleColor { get; set; }
+        public DbSet<VehicleModel> VehicleModel { get; set; }
 
         //public DbSet<Parking> Parking { get; set; }
     }

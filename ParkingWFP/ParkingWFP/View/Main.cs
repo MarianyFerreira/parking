@@ -1,5 +1,10 @@
-﻿using ParkingWFP.View.Access;
+﻿/* *************************************************************************************************
+*                       Copyright © 2018 MYF Sotwares. All rights reserved. 
+* *********************************************************************************************** */
+
+using ParkingWFP.View.Access;
 using ParkingWFP.View.Settings;
+using ParkingWFP.View.Vehicles;
 using System;
 using System.Windows.Forms;
 
@@ -54,22 +59,17 @@ namespace ParkingWFP.View
 
         private void btn_categories_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidade não implementada");
+            ShowMainPanelForm(new CategoriesCrud());
         }
 
         private void btn_colors_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidade não implementada");
-        }
-
-        private void btn_marks_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Funcionalidade não implementada");
+            ShowMainPanelForm(new ColorsCrud());
         }
 
         private void btn_models_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidade não implementada");
+            ShowMainPanelForm(new VehicleModelCrud());
         }
     }
 }

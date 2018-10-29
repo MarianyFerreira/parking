@@ -7,70 +7,51 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
-    [Table("User")]
-    public class User
+    [Table("VehicleCategory")]
+    public class VehicleCategory
     {
         [Key]
-        public int IdUser { get; set; }
+        public int IdVehicleCategory { get; set; }
+        [Required]
+        public string Category { get; set; }
+        [Required]
+        public double Value { get; set; }
 
         [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required]
-        public string Fullname { get; set; }
-        [Required]
-        public bool Enabled { get; set; }
-        [Required]
-        public string AccessType { get; set; }
+        public int Tolerance { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
         [Required]
         public DateTime UpdatedAt { get; set; }
 
-
-        public List<User> LoadUsersToList()
+        public List<VehicleCategory> LoadCategoriesToList()
         {
             using (var db = new ParkingContext())
             {
-                return db.User.ToList();
+                return db.VehicleCategory.ToList();
             }
         }
 
-        public User LoadUserById(int id)
+        public VehicleCategory LoadCategoryById(int id)
         {
             using (var db = new ParkingContext())
             {
-                return db.User.Where(dbUser =>
-                    dbUser.IdUser == id
+                return db.VehicleCategory.Where(dbCategory =>
+                    dbCategory.IdVehicleCategory == id
                 ).FirstOrDefault();
             }
         }
 
-        public User LoadUserByUsername(string username)
+        public bool ExistsCategory(string categoryName)
         {
             using (var db = new ParkingContext())
             {
-                return db.User
-                    .Where(dbUser => dbUser.Username == username)
-                    .FirstOrDefault();
-            }
-        }
-
-        public bool ExistsUsername(string username)
-        {
-            using (var db = new ParkingContext())
-            {
-                var user = db.User
-                    .Where(dbUser => dbUser.Username == username)
+                var user = db.VehicleCategory
+                    .Where(dbCategory => dbCategory.Category == categoryName)
                     .FirstOrDefault();
 
                 if (user != null)
@@ -80,12 +61,14 @@ namespace ParkingWFP.Model
             }
             return false;
         }
+        
 
-        public bool InsertUser(User user)
+        public bool RemoveCategory(VehicleCategory category)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Add(user);
+                db.VehicleCategory.Remove(category);
+
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
@@ -96,11 +79,11 @@ namespace ParkingWFP.Model
             return false;
         }
 
-        public bool UpdateUser(User user)
+        public bool InsertCategory(VehicleCategory category)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Update(user);
+                db.VehicleCategory.Add(category);
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
@@ -110,13 +93,12 @@ namespace ParkingWFP.Model
 
             return false;
         }
- 
-        public bool RemoveUser(User user)
+
+        public bool UpdateCategory(VehicleCategory category)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Remove(user);
-
+                db.VehicleCategory.Update(category);
                 var count = db.SaveChanges();
                 if (count == 1)
                 {

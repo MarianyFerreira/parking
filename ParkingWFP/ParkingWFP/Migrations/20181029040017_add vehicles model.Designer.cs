@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParkingWFP.Model;
@@ -9,9 +10,10 @@ using ParkingWFP.Model;
 namespace ParkingWFP.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    partial class ParkingContextModelSnapshot : ModelSnapshot
+    [Migration("20181029040017_add vehicles model")]
+    partial class addvehiclesmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,13 +81,13 @@ namespace ParkingWFP.Migrations
 
             modelBuilder.Entity("ParkingWFP.Model.VehicleCategory", b =>
                 {
-                    b.Property<int>("IdVehicleCategory")
+                    b.Property<int>("IdCategory")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Category")
-                        .IsRequired();
-
                     b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<int>("Tolerance");
 
@@ -93,26 +95,26 @@ namespace ParkingWFP.Migrations
 
                     b.Property<double>("Value");
 
-                    b.HasKey("IdVehicleCategory");
+                    b.HasKey("IdCategory");
 
-                    b.ToTable("VehicleCategory");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("ParkingWFP.Model.VehicleColor", b =>
                 {
-                    b.Property<int>("IdVehicleColor")
+                    b.Property<int>("IdColor")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Color")
-                        .IsRequired();
 
                     b.Property<DateTime>("CreatedAt");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.Property<DateTime>("UpdatedAt");
 
-                    b.HasKey("IdVehicleColor");
+                    b.HasKey("IdColor");
 
-                    b.ToTable("VehicleColor");
+                    b.ToTable("Color");
                 });
 
             modelBuilder.Entity("ParkingWFP.Model.VehicleModel", b =>

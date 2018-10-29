@@ -109,7 +109,7 @@ namespace ParkingWFP.View.Access
         private void btn_removeUser_Click(object sender, EventArgs e)
         {
             string msg = "Tem certeza que deseja remover esse usuário?";
-            if (MessageBox.Show(msg, "Remoção", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show(msg, "Confirmação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 if (user.RemoveUser(user))
                 {
@@ -117,18 +117,15 @@ namespace ParkingWFP.View.Access
                     MessageBox.Show("Operação concluida");
                 }
                 else
-                {
                     MessageBox.Show("ERRO: Problema ao executar operação no banco de dados");
-                }
             }
         }
 
         private void btn_saveUser_Click(object sender, EventArgs e)
         {
             if(isValidUser() == false)
-            {
                 return;
-            }
+        
             user.Username = tbx_username.Text.Trim();
             user.Email = tbx_email.Text.Trim();
             user.Password = tbx_password.Text.Trim();
@@ -138,22 +135,23 @@ namespace ParkingWFP.View.Access
             user.CreatedAt = user.IdUser == 0 ? DateTime.Now : user.CreatedAt;
             user.UpdatedAt = DateTime.Now;
 
-            if (user.InsertUser(user))
+            bool completed = false;
+            if(user.IdUser == 0)
+                completed = user.InsertUser(user);
+            else
+                completed = user.UpdateUser(user);
+            if (completed)
             {
                 Clear();
                 MessageBox.Show("Operação concluida");
             } else
-            {
                 MessageBox.Show("ERRO: Problema ao executar operação no banco de dados");
-            }
         }
 
         private void grid_users_DoubleClick(object sender, EventArgs e)
         {
             if(grid_users.CurrentRow.Index == -1)
-            {
                 return;
-            }
 
             user.IdUser = Convert.ToInt32(grid_users.CurrentRow.Cells["IdUser"].Value);
             user = user.LoadUserById(user.IdUser);

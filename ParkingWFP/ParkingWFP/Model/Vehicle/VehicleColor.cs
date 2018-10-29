@@ -7,70 +7,46 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
-    [Table("User")]
-    public class User
+    [Table("VehicleColor")]
+    public class VehicleColor
     {
         [Key]
-        public int IdUser { get; set; }
-
+        public int IdVehicleColor { get; set; }
         [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [Required]
-        public string Fullname { get; set; }
-        [Required]
-        public bool Enabled { get; set; }
-        [Required]
-        public string AccessType { get; set; }
+        public string Color { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
         [Required]
         public DateTime UpdatedAt { get; set; }
 
-
-        public List<User> LoadUsersToList()
+        public List<VehicleColor> LoadColorsToList()
         {
             using (var db = new ParkingContext())
             {
-                return db.User.ToList();
+                return db.VehicleColor.ToList();
             }
         }
 
-        public User LoadUserById(int id)
+        public VehicleColor LoadColorById(int id)
         {
             using (var db = new ParkingContext())
             {
-                return db.User.Where(dbUser =>
-                    dbUser.IdUser == id
+                return db.VehicleColor.Where(dbColor =>
+                    dbColor.IdVehicleColor == id
                 ).FirstOrDefault();
             }
         }
 
-        public User LoadUserByUsername(string username)
+        public bool ExistsColor(string colorName)
         {
             using (var db = new ParkingContext())
             {
-                return db.User
-                    .Where(dbUser => dbUser.Username == username)
-                    .FirstOrDefault();
-            }
-        }
-
-        public bool ExistsUsername(string username)
-        {
-            using (var db = new ParkingContext())
-            {
-                var user = db.User
-                    .Where(dbUser => dbUser.Username == username)
+                var user = db.VehicleColor
+                    .Where(dbColor => dbColor.Color == colorName)
                     .FirstOrDefault();
 
                 if (user != null)
@@ -81,11 +57,12 @@ namespace ParkingWFP.Model
             return false;
         }
 
-        public bool InsertUser(User user)
+        public bool RemoveColor(VehicleColor color)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Add(user);
+                db.VehicleColor.Remove(color);
+
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
@@ -96,11 +73,11 @@ namespace ParkingWFP.Model
             return false;
         }
 
-        public bool UpdateUser(User user)
+        public bool InsertColor(VehicleColor color)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Update(user);
+                db.VehicleColor.Add(color);
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
@@ -110,13 +87,12 @@ namespace ParkingWFP.Model
 
             return false;
         }
- 
-        public bool RemoveUser(User user)
+
+        public bool UpdateColor(VehicleColor color)
         {
             using (var db = new ParkingContext())
             {
-                db.User.Remove(user);
-
+                db.VehicleColor.Update(color);
                 var count = db.SaveChanges();
                 if (count == 1)
                 {
