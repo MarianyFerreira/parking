@@ -2,10 +2,9 @@
 *                       Copyright © 2018 MYF Sotwares. All rights reserved. 
 * *********************************************************************************************** */
 
+using ParkingWFP.View;
 using System;
 using System.Windows.Forms;
-
-using ParkingWFP.View.Access;
 
 namespace ParkingWFP
 {
@@ -16,7 +15,7 @@ namespace ParkingWFP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(new Main());
         }
     }
 }

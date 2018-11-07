@@ -19,21 +19,38 @@ namespace ParkingWFP.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("ParkingWFP.Model.AccessType", b =>
+            modelBuilder.Entity("ParkingWFP.Model.Parking", b =>
                 {
-                    b.Property<int>("IdAcessType")
+                    b.Property<int>("IdParking")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AcessType")
+                    b.Property<DateTime>("CanceledAt");
+
+                    b.Property<double>("Discount");
+
+                    b.Property<DateTime>("FinalizedAt");
+
+                    b.Property<double>("Increase");
+
+                    b.Property<string>("Plate")
                         .IsRequired();
 
-                    b.Property<DateTime>("CreatedAt");
+                    b.Property<DateTime>("StartedAt");
 
-                    b.Property<DateTime>("UpdatedAt");
+                    b.Property<string>("Status")
+                        .IsRequired();
 
-                    b.HasKey("IdAcessType");
+                    b.Property<double>("TotalValue");
 
-                    b.ToTable("AcessType");
+                    b.Property<int>("VehicleCategory");
+
+                    b.Property<int>("VehicleColor");
+
+                    b.Property<int>("VehicleModel");
+
+                    b.HasKey("IdParking");
+
+                    b.ToTable("Parking");
                 });
 
             modelBuilder.Entity("ParkingWFP.Model.Printer", b =>
@@ -41,20 +58,26 @@ namespace ParkingWFP.Migrations
                     b.Property<int>("IdPrinter")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Bold");
+
                     b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("Expanded");
+
+                    b.Property<int>("Font");
 
                     b.Property<string>("Footer");
 
                     b.Property<string>("Header");
 
-                    b.Property<string>("Host")
-                        .IsRequired();
+                    b.Property<int>("Italic");
 
-                    b.Property<string>("Model")
-                        .IsRequired();
+                    b.Property<int>("Model");
 
                     b.Property<string>("Port")
                         .IsRequired();
+
+                    b.Property<int>("Underline");
 
                     b.Property<DateTime>("UpdatedAt");
 
@@ -68,7 +91,8 @@ namespace ParkingWFP.Migrations
                     b.Property<int>("IdUser")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AccessTypeIdAcessType");
+                    b.Property<string>("AccessType")
+                        .IsRequired();
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -90,17 +114,64 @@ namespace ParkingWFP.Migrations
 
                     b.HasKey("IdUser");
 
-                    b.HasIndex("AccessTypeIdAcessType");
-
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("ParkingWFP.Model.User", b =>
+            modelBuilder.Entity("ParkingWFP.Model.VehicleCategory", b =>
                 {
-                    b.HasOne("ParkingWFP.Model.AccessType", "AccessType")
-                        .WithMany()
-                        .HasForeignKey("AccessTypeIdAcessType")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.Property<int>("IdVehicleCategory")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Category")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("Tolerance");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<double>("Value");
+
+                    b.HasKey("IdVehicleCategory");
+
+                    b.ToTable("VehicleCategory");
+                });
+
+            modelBuilder.Entity("ParkingWFP.Model.VehicleColor", b =>
+                {
+                    b.Property<int>("IdVehicleColor")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Color")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.HasKey("IdVehicleColor");
+
+                    b.ToTable("VehicleColor");
+                });
+
+            modelBuilder.Entity("ParkingWFP.Model.VehicleModel", b =>
+                {
+                    b.Property<int>("IdVehicleModel")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategorySuggestion");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Model")
+                        .IsRequired();
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.HasKey("IdVehicleModel");
+
+                    b.ToTable("VehicleModel");
                 });
 #pragma warning restore 612, 618
         }

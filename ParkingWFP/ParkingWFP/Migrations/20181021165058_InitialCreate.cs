@@ -24,25 +24,6 @@ namespace ParkingWFP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Printer",
-                columns: table => new
-                {
-                    IdPrinter = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Model = table.Column<string>(nullable: false),
-                    Host = table.Column<string>(nullable: false),
-                    Port = table.Column<string>(nullable: false),
-                    Header = table.Column<string>(nullable: true),
-                    Footer = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Printer", x => x.IdPrinter);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -76,8 +57,6 @@ namespace ParkingWFP.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Printer");
 
             migrationBuilder.DropTable(
                 name: "User");

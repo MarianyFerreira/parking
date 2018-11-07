@@ -1,5 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿/* *************************************************************************************************
+*                       Copyright © 2018 MYF Sotwares. All rights reserved. 
+* *********************************************************************************************** */
+
+using System;
 using System.Windows.Forms;
 using ParkingWFP.Model;
 
@@ -7,74 +10,63 @@ namespace ParkingWFP.View.Access
 {
     public partial class Login : Form
     {
+        public User user = new User();
+        public bool isAdmin = false;
+
         public Login()
         {
             InitializeComponent();
         }
 
-        public bool checkForm()
+        private void Login_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txb_username.Text))
+            PopulateUsers();
+        }
+
+        private void PopulateUsers()
+        {
+            cbx_users.DataSource = user.LoadAdminUsersToList();
+            cbx_users.DisplayMember = "Username";
+            cbx_users.ValueMember = "Username";
+            cbx_users.SelectedIndex = 0;
+        }
+
+        private void cbx_users_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selected = cbx_users.SelectedValue;
+            if (selected == null || selected.GetType() == typeof(User))
             {
-                MessageBox.Show($"Nome de usuário é um campo obrigatório");
-                return false;
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(txb_password.Text))
+            user = user.LoadUserByUsername(selected.ToString());
+        }
+
+        public bool isValidUser(User user)
+        {
+            var password = txb_password.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show($"Senha é um campo obrigatório");
                 return false;
             }
 
-            return true;
-        }
- 
-        public bool checkUser(User user)
-        {
-            if (user == null)
-            {
-                MessageBox.Show($"Nome de usuário {txb_username.Text} não encontrado");
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool checkPassword(User user)
-        {
-            if (user.Password != txb_password.Text)
+            if (user.Password != password)
             {
                 MessageBox.Show($"A senha digitada está incorreta");
                 return false;
             }
             return true;
         }
- 
-        public User getUserByUsername(string Username)
-        {
-            User user;
-            using (var db = new ParkingContext())
-            {
-                user = db.User
-                    .Where(dbUser => dbUser.Username == Username)
-                    .FirstOrDefault();
-            }
 
-            return user;
-        }
 
         private void btn_login_Click(object sender, EventArgs e)
         {
-            if (checkForm() == false)
+            if (isValidUser(user))
             {
-                return;
-            }
-
-            User user = getUserByUsername(txb_username.Text);
-
-            if (checkUser(user) && checkPassword(user))
-            {
-                MessageBox.Show($"Nome de usuário {txb_username.Text} e senha OK");
+                isAdmin = true;
+                Close();
             }
         }
     }
