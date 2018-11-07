@@ -60,13 +60,11 @@
             this.panel_usersCrudLabels = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbl_title = new System.Windows.Forms.Label();
-            this.panel_userslist = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.grid_users)).BeginInit();
             this.panel_usersCrud.SuspendLayout();
             this.panel_usersCrudTextBoxes.SuspendLayout();
             this.panel_usersCrudLabels.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel_userslist.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_clearUsersForm
@@ -76,9 +74,10 @@
             this.btn_clearUsersForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_clearUsersForm.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_clearUsersForm.ForeColor = System.Drawing.Color.White;
-            this.btn_clearUsersForm.Location = new System.Drawing.Point(302, 289);
+            this.btn_clearUsersForm.Location = new System.Drawing.Point(23, 460);
+            this.btn_clearUsersForm.Margin = new System.Windows.Forms.Padding(4, 20, 4, 20);
             this.btn_clearUsersForm.Name = "btn_clearUsersForm";
-            this.btn_clearUsersForm.Size = new System.Drawing.Size(130, 40);
+            this.btn_clearUsersForm.Size = new System.Drawing.Size(145, 40);
             this.btn_clearUsersForm.TabIndex = 10;
             this.btn_clearUsersForm.Text = "Limpar";
             this.btn_clearUsersForm.UseVisualStyleBackColor = false;
@@ -91,9 +90,10 @@
             this.btn_removeUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_removeUser.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_removeUser.ForeColor = System.Drawing.Color.White;
-            this.btn_removeUser.Location = new System.Drawing.Point(438, 289);
+            this.btn_removeUser.Location = new System.Drawing.Point(176, 460);
+            this.btn_removeUser.Margin = new System.Windows.Forms.Padding(4, 20, 4, 20);
             this.btn_removeUser.Name = "btn_removeUser";
-            this.btn_removeUser.Size = new System.Drawing.Size(130, 40);
+            this.btn_removeUser.Size = new System.Drawing.Size(145, 40);
             this.btn_removeUser.TabIndex = 9;
             this.btn_removeUser.Text = "Remover";
             this.btn_removeUser.UseVisualStyleBackColor = false;
@@ -101,7 +101,11 @@
             // 
             // grid_users
             // 
-            this.grid_users.BackgroundColor = System.Drawing.SystemColors.InactiveCaption;
+            this.grid_users.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grid_users.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.grid_users.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.grid_users.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdUser,
             this.Username,
@@ -112,12 +116,13 @@
             this.AccessType,
             this.CreatedAt,
             this.UpdatedAt});
-            this.grid_users.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grid_users.GridColor = System.Drawing.SystemColors.InactiveBorder;
-            this.grid_users.Location = new System.Drawing.Point(0, 0);
+            this.grid_users.GridColor = System.Drawing.SystemColors.InactiveCaption;
+            this.grid_users.Location = new System.Drawing.Point(24, 544);
+            this.grid_users.Margin = new System.Windows.Forms.Padding(4);
             this.grid_users.Name = "grid_users";
             this.grid_users.RowTemplate.Height = 24;
-            this.grid_users.Size = new System.Drawing.Size(971, 275);
+            this.grid_users.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grid_users.Size = new System.Drawing.Size(458, 197);
             this.grid_users.TabIndex = 11;
             this.grid_users.DoubleClick += new System.EventHandler(this.grid_users_DoubleClick);
             // 
@@ -126,6 +131,7 @@
             this.IdUser.DataPropertyName = "IdUser";
             this.IdUser.HeaderText = "Código";
             this.IdUser.Name = "IdUser";
+            this.IdUser.Visible = false;
             // 
             // Username
             // 
@@ -169,12 +175,14 @@
             this.CreatedAt.DataPropertyName = "CreatedAt";
             this.CreatedAt.HeaderText = "Data de Criação";
             this.CreatedAt.Name = "CreatedAt";
+            this.CreatedAt.Visible = false;
             // 
             // UpdatedAt
             // 
             this.UpdatedAt.DataPropertyName = "UpdatedAt";
             this.UpdatedAt.HeaderText = "Data de Atualização";
             this.UpdatedAt.Name = "UpdatedAt";
+            this.UpdatedAt.Visible = false;
             // 
             // btn_saveUser
             // 
@@ -183,9 +191,10 @@
             this.btn_saveUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_saveUser.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_saveUser.ForeColor = System.Drawing.Color.White;
-            this.btn_saveUser.Location = new System.Drawing.Point(574, 289);
+            this.btn_saveUser.Location = new System.Drawing.Point(329, 460);
+            this.btn_saveUser.Margin = new System.Windows.Forms.Padding(4, 20, 4, 20);
             this.btn_saveUser.Name = "btn_saveUser";
-            this.btn_saveUser.Size = new System.Drawing.Size(130, 40);
+            this.btn_saveUser.Size = new System.Drawing.Size(145, 40);
             this.btn_saveUser.TabIndex = 8;
             this.btn_saveUser.Text = "Adicionar";
             this.btn_saveUser.UseVisualStyleBackColor = false;
@@ -193,23 +202,24 @@
             // 
             // cbx_accessType
             // 
-            this.cbx_accessType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbx_accessType.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbx_accessType.FormattingEnabled = true;
             this.cbx_accessType.Items.AddRange(new object[] {
             "Administrador",
             "Atendente",
             "Outros"});
-            this.cbx_accessType.Location = new System.Drawing.Point(244, 205);
+            this.cbx_accessType.Location = new System.Drawing.Point(24, 372);
+            this.cbx_accessType.Margin = new System.Windows.Forms.Padding(4);
             this.cbx_accessType.Name = "cbx_accessType";
-            this.cbx_accessType.Size = new System.Drawing.Size(460, 31);
+            this.cbx_accessType.Size = new System.Drawing.Size(450, 31);
             this.cbx_accessType.TabIndex = 6;
             // 
             // lbl_userAccess
             // 
             this.lbl_userAccess.AutoSize = true;
             this.lbl_userAccess.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_userAccess.Location = new System.Drawing.Point(72, 208);
+            this.lbl_userAccess.Location = new System.Drawing.Point(24, 345);
+            this.lbl_userAccess.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_userAccess.Name = "lbl_userAccess";
             this.lbl_userAccess.Size = new System.Drawing.Size(150, 23);
             this.lbl_userAccess.TabIndex = 34;
@@ -221,7 +231,8 @@
             this.ckb_enabled.Checked = true;
             this.ckb_enabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckb_enabled.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ckb_enabled.Location = new System.Drawing.Point(244, 250);
+            this.ckb_enabled.Location = new System.Drawing.Point(88, 413);
+            this.ckb_enabled.Margin = new System.Windows.Forms.Padding(4);
             this.ckb_enabled.Name = "ckb_enabled";
             this.ckb_enabled.Size = new System.Drawing.Size(18, 17);
             this.ckb_enabled.TabIndex = 7;
@@ -231,7 +242,8 @@
             // 
             this.lbl_enabled.AutoSize = true;
             this.lbl_enabled.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_enabled.Location = new System.Drawing.Point(163, 244);
+            this.lbl_enabled.Location = new System.Drawing.Point(26, 407);
+            this.lbl_enabled.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_enabled.Name = "lbl_enabled";
             this.lbl_enabled.Size = new System.Drawing.Size(59, 23);
             this.lbl_enabled.TabIndex = 32;
@@ -239,18 +251,20 @@
             // 
             // tbx_email
             // 
-            this.tbx_email.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbx_email.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbx_email.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_email.Location = new System.Drawing.Point(244, 106);
+            this.tbx_email.Location = new System.Drawing.Point(24, 177);
+            this.tbx_email.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_email.Name = "tbx_email";
-            this.tbx_email.Size = new System.Drawing.Size(460, 27);
+            this.tbx_email.Size = new System.Drawing.Size(446, 34);
             this.tbx_email.TabIndex = 3;
             // 
             // lbl_email
             // 
             this.lbl_email.AutoSize = true;
             this.lbl_email.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_email.Location = new System.Drawing.Point(158, 108);
+            this.lbl_email.Location = new System.Drawing.Point(24, 150);
+            this.lbl_email.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_email.Name = "lbl_email";
             this.lbl_email.Size = new System.Drawing.Size(64, 23);
             this.lbl_email.TabIndex = 30;
@@ -258,18 +272,20 @@
             // 
             // tbx_fullname
             // 
-            this.tbx_fullname.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbx_fullname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbx_fullname.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_fullname.Location = new System.Drawing.Point(244, 40);
+            this.tbx_fullname.Location = new System.Drawing.Point(24, 47);
+            this.tbx_fullname.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_fullname.Name = "tbx_fullname";
-            this.tbx_fullname.Size = new System.Drawing.Size(460, 27);
+            this.tbx_fullname.Size = new System.Drawing.Size(450, 34);
             this.tbx_fullname.TabIndex = 1;
             // 
             // lbl_fullname
             // 
             this.lbl_fullname.AutoSize = true;
             this.lbl_fullname.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_fullname.Location = new System.Drawing.Point(69, 44);
+            this.lbl_fullname.Location = new System.Drawing.Point(24, 20);
+            this.lbl_fullname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_fullname.Name = "lbl_fullname";
             this.lbl_fullname.Size = new System.Drawing.Size(153, 23);
             this.lbl_fullname.TabIndex = 28;
@@ -277,19 +293,21 @@
             // 
             // tbx_password
             // 
-            this.tbx_password.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbx_password.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbx_password.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_password.Location = new System.Drawing.Point(244, 139);
+            this.tbx_password.Location = new System.Drawing.Point(24, 242);
+            this.tbx_password.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_password.Name = "tbx_password";
             this.tbx_password.PasswordChar = '*';
-            this.tbx_password.Size = new System.Drawing.Size(460, 27);
+            this.tbx_password.Size = new System.Drawing.Size(450, 34);
             this.tbx_password.TabIndex = 4;
             // 
             // lbl_password
             // 
             this.lbl_password.AutoSize = true;
             this.lbl_password.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_password.Location = new System.Drawing.Point(151, 141);
+            this.lbl_password.Location = new System.Drawing.Point(24, 215);
+            this.lbl_password.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_password.Name = "lbl_password";
             this.lbl_password.Size = new System.Drawing.Size(71, 23);
             this.lbl_password.TabIndex = 26;
@@ -297,18 +315,20 @@
             // 
             // tbx_username
             // 
-            this.tbx_username.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbx_username.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbx_username.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_username.Location = new System.Drawing.Point(244, 73);
+            this.tbx_username.Location = new System.Drawing.Point(24, 112);
+            this.tbx_username.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_username.Name = "tbx_username";
-            this.tbx_username.Size = new System.Drawing.Size(460, 27);
+            this.tbx_username.Size = new System.Drawing.Size(450, 34);
             this.tbx_username.TabIndex = 2;
             // 
             // lbl_user
             // 
             this.lbl_user.AutoSize = true;
             this.lbl_user.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_user.Location = new System.Drawing.Point(140, 75);
+            this.lbl_user.Location = new System.Drawing.Point(24, 85);
+            this.lbl_user.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_user.Name = "lbl_user";
             this.lbl_user.Size = new System.Drawing.Size(82, 23);
             this.lbl_user.TabIndex = 24;
@@ -316,19 +336,21 @@
             // 
             // tbx_confirmPassword
             // 
-            this.tbx_confirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tbx_confirmPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbx_confirmPassword.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_confirmPassword.Location = new System.Drawing.Point(244, 172);
+            this.tbx_confirmPassword.Location = new System.Drawing.Point(24, 307);
+            this.tbx_confirmPassword.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_confirmPassword.Name = "tbx_confirmPassword";
             this.tbx_confirmPassword.PasswordChar = '*';
-            this.tbx_confirmPassword.Size = new System.Drawing.Size(460, 27);
+            this.tbx_confirmPassword.Size = new System.Drawing.Size(450, 34);
             this.tbx_confirmPassword.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 172);
+            this.label1.Location = new System.Drawing.Point(20, 280);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(160, 23);
             this.label1.TabIndex = 40;
@@ -340,13 +362,16 @@
             this.panel_usersCrud.Controls.Add(this.panel_usersCrudLabels);
             this.panel_usersCrud.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_usersCrud.Location = new System.Drawing.Point(0, 0);
+            this.panel_usersCrud.Margin = new System.Windows.Forms.Padding(4);
             this.panel_usersCrud.Name = "panel_usersCrud";
-            this.panel_usersCrud.Size = new System.Drawing.Size(971, 385);
+            this.panel_usersCrud.Size = new System.Drawing.Size(505, 820);
             this.panel_usersCrud.TabIndex = 42;
             // 
             // panel_usersCrudTextBoxes
             // 
-            this.panel_usersCrudTextBoxes.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel_usersCrudTextBoxes.AutoScroll = true;
+            this.panel_usersCrudTextBoxes.BackColor = System.Drawing.SystemColors.Control;
+            this.panel_usersCrudTextBoxes.Controls.Add(this.grid_users);
             this.panel_usersCrudTextBoxes.Controls.Add(this.tbx_confirmPassword);
             this.panel_usersCrudTextBoxes.Controls.Add(this.tbx_username);
             this.panel_usersCrudTextBoxes.Controls.Add(this.btn_clearUsersForm);
@@ -366,9 +391,11 @@
             this.panel_usersCrudTextBoxes.Controls.Add(this.lbl_email);
             this.panel_usersCrudTextBoxes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_usersCrudTextBoxes.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel_usersCrudTextBoxes.Location = new System.Drawing.Point(0, 50);
+            this.panel_usersCrudTextBoxes.Location = new System.Drawing.Point(0, 55);
+            this.panel_usersCrudTextBoxes.Margin = new System.Windows.Forms.Padding(4);
             this.panel_usersCrudTextBoxes.Name = "panel_usersCrudTextBoxes";
-            this.panel_usersCrudTextBoxes.Size = new System.Drawing.Size(971, 335);
+            this.panel_usersCrudTextBoxes.Padding = new System.Windows.Forms.Padding(20);
+            this.panel_usersCrudTextBoxes.Size = new System.Drawing.Size(505, 765);
             this.panel_usersCrudTextBoxes.TabIndex = 42;
             // 
             // panel_usersCrudLabels
@@ -378,17 +405,18 @@
             this.panel_usersCrudLabels.Controls.Add(this.lbl_title);
             this.panel_usersCrudLabels.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_usersCrudLabels.Location = new System.Drawing.Point(0, 0);
+            this.panel_usersCrudLabels.Margin = new System.Windows.Forms.Padding(4);
             this.panel_usersCrudLabels.Name = "panel_usersCrudLabels";
-            this.panel_usersCrudLabels.Size = new System.Drawing.Size(971, 50);
+            this.panel_usersCrudLabels.Size = new System.Drawing.Size(505, 55);
             this.panel_usersCrudLabels.TabIndex = 41;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::ParkingWFP.Properties.Resources.users;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(24, 13);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.Size = new System.Drawing.Size(47, 35);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -398,31 +426,23 @@
             this.lbl_title.AutoSize = true;
             this.lbl_title.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_title.ForeColor = System.Drawing.Color.White;
-            this.lbl_title.Location = new System.Drawing.Point(60, 9);
+            this.lbl_title.Location = new System.Drawing.Point(75, 13);
+            this.lbl_title.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_title.Name = "lbl_title";
             this.lbl_title.Size = new System.Drawing.Size(134, 35);
             this.lbl_title.TabIndex = 0;
             this.lbl_title.Text = "Usuários";
             // 
-            // panel_userslist
-            // 
-            this.panel_userslist.Controls.Add(this.grid_users);
-            this.panel_userslist.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_userslist.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel_userslist.Location = new System.Drawing.Point(0, 385);
-            this.panel_userslist.Name = "panel_userslist";
-            this.panel_userslist.Size = new System.Drawing.Size(971, 275);
-            this.panel_userslist.TabIndex = 2;
-            // 
             // UsersCrud
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(971, 660);
+            this.ClientSize = new System.Drawing.Size(505, 820);
             this.Controls.Add(this.panel_usersCrud);
-            this.Controls.Add(this.panel_userslist);
+            this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UsersCrud";
             this.Text = "UsersCrud";
             this.Load += new System.EventHandler(this.UsersCrud_Load);
@@ -433,7 +453,6 @@
             this.panel_usersCrudLabels.ResumeLayout(false);
             this.panel_usersCrudLabels.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel_userslist.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -459,7 +478,6 @@
         private System.Windows.Forms.TextBox tbx_confirmPassword;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel_usersCrud;
-        private System.Windows.Forms.Panel panel_userslist;
         private System.Windows.Forms.Panel panel_usersCrudLabels;
         private System.Windows.Forms.Panel panel_usersCrudTextBoxes;
         private System.Windows.Forms.PictureBox pictureBox1;

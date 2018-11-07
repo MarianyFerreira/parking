@@ -17,29 +17,31 @@ namespace ParkingWFP.View
             InitializeComponent();
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Maximized;
-        }
-
         private void ShowMainPanelForm(object form)
         {
-            if(panel_main.Controls.Count > 0)
+            if (panel_main.Controls.Count > 0)
             {
                 panel_main.Controls.RemoveAt(0);
             }
             Form newForm = form as Form;
             newForm.TopLevel = false;
             newForm.Dock = DockStyle.Fill;
+            newForm.FormBorderStyle = FormBorderStyle.None;
 
             panel_main.Controls.Add(newForm);
             panel_main.Tag = newForm;
             newForm.Show();
         }
 
+        private void Main_Load(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            ShowMainPanelForm(new Dashboard());
+        }
+
         private void btn_parking_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidade não implementada");
+            ShowMainPanelForm(new Dashboard());
         }
 
         private void btn_printer_Click(object sender, EventArgs e)
@@ -49,7 +51,17 @@ namespace ParkingWFP.View
 
         private void btn_users_Click(object sender, EventArgs e)
         {
-            ShowMainPanelForm(new UsersCrud());
+            bool admin = false;
+            using (var loginForm = new Login())
+            {
+                loginForm.ShowDialog();
+                admin = loginForm.isAdmin;
+            }
+
+            if (admin)
+            {
+                ShowMainPanelForm(new UsersCrud());
+            }
         }
 
         private void btn_vehicles_Click(object sender, EventArgs e)
@@ -59,7 +71,17 @@ namespace ParkingWFP.View
 
         private void btn_categories_Click(object sender, EventArgs e)
         {
-            ShowMainPanelForm(new CategoriesCrud());
+            bool admin = false;
+            using (var loginForm = new Login())
+            {
+                loginForm.ShowDialog();
+                admin = loginForm.isAdmin;
+            }
+
+            if (admin)
+            {
+                ShowMainPanelForm(new CategoriesCrud());
+            }
         }
 
         private void btn_colors_Click(object sender, EventArgs e)

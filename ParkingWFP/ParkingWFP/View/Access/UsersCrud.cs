@@ -12,6 +12,11 @@ namespace ParkingWFP.View.Access
             InitializeComponent();
         }
 
+        private void UsersCrud_Load(object sender, EventArgs e)
+        {
+            Clear();
+        }
+
         private void PopulateUsersGrid()
         {
             grid_users.AutoGenerateColumns = false;
@@ -34,11 +39,6 @@ namespace ParkingWFP.View.Access
             user.IdUser = 0;
 
             PopulateUsersGrid();
-        }
-
-        private void UsersCrud_Load(object sender, EventArgs e)
-        {
-            Clear();
         }
 
         private bool isValidUser()

@@ -10,77 +10,97 @@ using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
+    /* MODEL -------------------------------------------------------------------------------- */
+
     [Table("Printer")]
     public class Printer
     {
         [Key]
         public int IdPrinter { get; set; }
         [Required]
-        public string Model { get; set; }
-        [Required]
-        public string Host { get; set; }
+        public int Model { get; set; }
         [Required]
         public string Port { get; set; }
         public string Header { get; set; }
         public string Footer { get; set; }
 
+        [Required]
+        public int Font { get; set; }
+
+        [Required]
+        public int Italic { get; set; }
+
+        [Required]
+        public int Underline { get; set; }
+
+        [Required]
+        public int Expanded { get; set; }
+
+        [Required]
+        public int Bold { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
         [Required]
         public DateTime UpdatedAt { get; set; }
 
-        private bool CheckPrinter(Printer newPrinter)
-        {
-            if (string.IsNullOrWhiteSpace(newPrinter.Model))
-            {
-                MessageBox.Show($"Modelo é um campo obrigatório");
-                return false;
-            }
 
-            if (string.IsNullOrWhiteSpace(newPrinter.Host))
-            {
-                MessageBox.Show($"Host é um campo obrigatório");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(newPrinter.Port))
-            {
-                MessageBox.Show($"Porta é um campo obrigatório");
-                return false;
-            }
-
-            return true;
-        }
+        /* SELECT ------------------------------------------------------------------------------- */
 
         public Printer LoadPrinter()
         {
-            using (var db = new ParkingContext())
+            try
             {
-                return db.Printer.FirstOrDefault();
+                using (var db = new ParkingContext())
+                {
+                    return db.Printer.FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar as configurações da impressora",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
             }
         }
 
-        public void UpdatePrinter(Printer newPrinter)
+
+        /* UPDATE ------------------------------------------------------------------------------- */
+
+        public bool UpdatePrinter(Printer newPrinter)
         {
-            CheckPrinter(newPrinter);
 
-            using (var db = new ParkingContext())
+            try
             {
-                db.Printer.Update(newPrinter);
+                using (var db = new ParkingContext())
+                {
+                    db.Printer.Update(newPrinter);
 
-                var count = db.SaveChanges();
-                if (count == 1)
-                {
-                    MessageBox.Show($"Cadastro de impressora atualizado");
-                }
-                else
-                {
-                    MessageBox.Show($"ERRO: Não foi possível atualizar os dados da Impressora");
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
-
-            return;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível atualizar as configurações da impressora",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
     }
 }

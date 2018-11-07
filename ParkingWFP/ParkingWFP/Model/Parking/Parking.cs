@@ -11,42 +11,56 @@ using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
-    [Table("VehicleModel")]
-    public class VehicleModel
+    [Table("Parking")]
+    public class Parking
     {
         /* MODEL -------------------------------------------------------------------------------- */
 
         [Key]
-        public int IdVehicleModel { get; set; }
-        [Required]
-        public string Model { get; set; }
+        public int IdParking { get; set; }
 
         [Required]
-        public int CategorySuggestion { get; set; }
-
+        public string Plate { get; set; }
 
         [Required]
-        public DateTime CreatedAt { get; set; }
-        [Required]
-        public DateTime UpdatedAt { get; set; }
+        public int VehicleModel { get; set; }
 
+        [Required]
+        public int VehicleCategory { get; set; }
+        [Required]
+        public int VehicleColor { get; set; }
+
+        public double Increase { get; set; }
+
+        public double Discount { get; set; }
+
+        public double TotalValue { get; set; }
+
+        [Required]
+        public DateTime StartedAt { get; set; }
+
+        public DateTime FinalizedAt { get; set; }
+
+        public DateTime CanceledAt { get; set; }
+
+        [Required]
+        public string Status { get; set; }
 
         /* LIST --------------------------------------------------------------------------------- */
 
-        public List<VehicleModel> FilterVehicleModelsContains(string model)
+        public List<Parking> LoadParkingsToList()
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
-                    return db.VehicleModel.Where(
-                        dbVehicleModel => dbVehicleModel.Model.Contains(model)).ToList();
+                    return db.Parking.ToList();
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(
-                    "Não foi possível filtar o modelo",
+                    "Não foi possível carregar os estacionamentos",
                     "Atenção",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Error
@@ -55,46 +69,105 @@ namespace ParkingWFP.Model
             }
         }
 
-        public List<VehicleModel> LoadVehicleModelsToList()
+        public List<Parking> LoadNotFinishParkingsToList()
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
-                    return db.VehicleModel.OrderBy(
-                        dbVehicleModel => dbVehicleModel.Model).ToList();
+                    return db.Parking.Where(
+                        dbParking => dbParking.Status != "Finalizado"
+                    ).ToList();
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(
-                    "Não foi possível carregar os modelos",
+                    "Não foi possível carregar os estacionamentos não finalizados",
                     "Atenção",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Error
                 );
                 throw;
             }
+
         }
 
-        
         /* SELECT ------------------------------------------------------------------------------- */
 
-        public VehicleModel LoadVehicleModelById(int id)
+        public bool ExistsParkingPlate(string plate)
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
-                    return db.VehicleModel.Where(dbVehicleModel =>
-                        dbVehicleModel.IdVehicleModel == id
+                    var parking = db.Parking
+                        .Where(dbParking => dbParking.Plate == plate)
+                        .FirstOrDefault();
+
+                    if (parking != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível verificar a existência do estacionamento usando a placa",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
+        public bool ExistsParkingStarted()
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    var parking = db.Parking
+                        .Where(dbParking => dbParking.Status.Contains("Em Aberto"))
+                        .FirstOrDefault();
+
+                    if (parking != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível verificar a existencia de estacionamentos iniciados",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
+        public Parking LoadParkingById(int id)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    return db.Parking.Where(dbParking =>
+                        dbParking.IdParking == id
                     ).FirstOrDefault();
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(
-                    "Não foi possível carregar o modelo usando o código",
+                    "Não foi possível carregar o estacionamento usando o código",
                     "Atenção",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Error
@@ -103,76 +176,39 @@ namespace ParkingWFP.Model
             }
         }
 
-        public bool ExistsVehicleModel(string model)
+        public Parking LoadParkingByPlate(string plate)
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
-                    var user = db.VehicleModel
-                        .Where(dbVehicleModel => dbVehicleModel.Model == model)
+                    return db.Parking
+                        .Where(dbParking => dbParking.Plate == plate)
                         .FirstOrDefault();
-
-                    if (user != null)
-                    {
-                        return true;
-                    }
-                    return false;
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show(
-                       "Não foi possível verificar a existência do modelo",
-                       "Atenção",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                   );
-                throw;
-            }
-        }
-
-
-        /* REMOVE ------------------------------------------------------------------------------- */
-
-        public bool RemoveVehicleModel(VehicleModel vehicleModel)
-        {
-            try
-            {
-                using (var db = new ParkingContext())
-                {
-                    db.VehicleModel.Remove(vehicleModel);
-
-                    var count = db.SaveChanges();
-                    if (count == 1)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(
-                    "Não foi possível remover o modelo",
+                    "Não foi possível carregar o estacionamento usando a placa",
                     "Atenção",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Error
                 );
                 throw;
             }
-            
         }
+
 
         /* INSERT ------------------------------------------------------------------------------- */
 
-        public bool InsertVehicleModel(VehicleModel vehicleModel)
+        public bool InsertParking(Parking parking)
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
-                    db.VehicleModel.Add(vehicleModel);
+                    db.Parking.Add(parking);
                     var count = db.SaveChanges();
                     if (count == 1)
                     {
@@ -184,7 +220,7 @@ namespace ParkingWFP.Model
             catch (Exception)
             {
                 MessageBox.Show(
-                    "Não foi possível inserir o modelo",
+                    "Não foi possível inserir o estacionamento",
                     "Atenção",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Error
@@ -196,15 +232,46 @@ namespace ParkingWFP.Model
 
         /* UPDATE ------------------------------------------------------------------------------- */
 
-        public bool UpdateVehicleModel(VehicleModel vehicleModel)
+        public bool UpdateParking(Parking parking)
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
-                    db.VehicleModel.Update(vehicleModel);
+                    db.Parking.Update(parking);
                     var count = db.SaveChanges();
                     if (count == 1)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível atualizar o estacionamento",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
+
+        /* REMOVE ------------------------------------------------------------------------------- */
+
+        public bool TruncateParking()
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    db.Parking.RemoveRange(db.Parking);
+                    var count = db.SaveChanges();
+                    if (count > 0)
                     {
                         return true;
                     }
@@ -214,7 +281,7 @@ namespace ParkingWFP.Model
             catch (Exception)
             {
                 MessageBox.Show(
-                    "Não foi possível atualizar o modelo",
+                    "Não foi possível remover os estacionamentos",
                     "Atenção",
                      MessageBoxButtons.OK,
                      MessageBoxIcon.Error

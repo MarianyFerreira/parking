@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParkingWFP.Model;
@@ -9,49 +10,16 @@ using ParkingWFP.Model;
 namespace ParkingWFP.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    partial class ParkingContextModelSnapshot : ModelSnapshot
+    [Migration("20181030184055_Add Printer")]
+    partial class AddPrinter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("ParkingWFP.Model.Parking", b =>
-                {
-                    b.Property<int>("IdParking")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CanceledAt");
-
-                    b.Property<double>("Discount");
-
-                    b.Property<DateTime>("FinalizedAt");
-
-                    b.Property<double>("Increase");
-
-                    b.Property<string>("Plate")
-                        .IsRequired();
-
-                    b.Property<DateTime>("StartedAt");
-
-                    b.Property<string>("Status")
-                        .IsRequired();
-
-                    b.Property<double>("TotalValue");
-
-                    b.Property<int>("VehicleCategory");
-
-                    b.Property<int>("VehicleColor");
-
-                    b.Property<int>("VehicleModel");
-
-                    b.HasKey("IdParking");
-
-                    b.ToTable("Parking");
-                });
 
             modelBuilder.Entity("ParkingWFP.Model.Printer", b =>
                 {
@@ -159,8 +127,6 @@ namespace ParkingWFP.Migrations
                 {
                     b.Property<int>("IdVehicleModel")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CategorySuggestion");
 
                     b.Property<DateTime>("CreatedAt");
 

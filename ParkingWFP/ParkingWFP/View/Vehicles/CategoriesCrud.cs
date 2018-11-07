@@ -23,18 +23,21 @@ namespace ParkingWFP.View.Vehicles
             grid_categories.DataSource = category.LoadCategoriesToList();
         }
 
+        private void FilterVehicleCategories()
+        {
+            grid_categories.DataSource = category.FilterVehicleCategoriesContains(tbx_categoryFilter.Text.Trim());
+        }
+
         private void Clear()
         {
             tbx_category.Text = "";
             tbx_value.Text = "";
             tbx_tolerance.Text = "";
 
-            btn_remove.Enabled = false;
-            btn_save.Text = "Adicionar";
-
             category.IdVehicleCategory = 0;
 
             PopulateGrid();
+            FilterVehicleCategories();
         }
 
         private void Category_Load(object sender, EventArgs e)
@@ -81,6 +84,12 @@ namespace ParkingWFP.View.Vehicles
 
         private void btn_remove_Click(object sender, EventArgs e)
         {
+            if (category.IdVehicleCategory == 0)
+            {
+                MessageBox.Show("Selecione uma categoria");
+                return;
+            }
+
             string msg = "Tem certeza que deseja remover essa categoria?";
             if (MessageBox.Show(msg, "Confirmação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
@@ -96,7 +105,13 @@ namespace ParkingWFP.View.Vehicles
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            if(isValidCategory() == false)
+            if (category.IdVehicleCategory == 0)
+            {
+                MessageBox.Show("Selecione uma categoria");
+                return;
+            }
+
+            if (isValidCategory() == false)
                 return;
 
             category.Category = tbx_category.Text.Trim();
@@ -106,10 +121,7 @@ namespace ParkingWFP.View.Vehicles
             category.UpdatedAt = DateTime.Now;
 
             bool completed = false;
-            if (category.IdVehicleCategory == 0)
-                completed = category.InsertCategory(category);
-            else
-                completed = category.UpdateCategory(category);
+            completed = category.UpdateCategory(category);
 
             if (completed)
             {
@@ -120,7 +132,7 @@ namespace ParkingWFP.View.Vehicles
                 MessageBox.Show("ERRO: Problema ao executar operação no banco de dados");
         }
 
-        private void grid_categories_DoubleClick(object sender, EventArgs e)
+        private void grid_categories_Click(object sender, EventArgs e)
         {
             if (grid_categories.CurrentRow.Index == -1)
                 return;
@@ -131,9 +143,6 @@ namespace ParkingWFP.View.Vehicles
             tbx_category.Text = category.Category;
             tbx_value.Text = category.Value.ToString();
             tbx_tolerance.Text = category.Tolerance.ToString();
-
-            btn_save.Text = "Atualizar";
-            btn_remove.Enabled = true;
         }
 
         private void tbx_value_KeyPress(object sender, KeyPressEventArgs e)
@@ -159,6 +168,16 @@ namespace ParkingWFP.View.Vehicles
 
             if (!char.IsDigit(key) && key != backspace)
                 e.Handled = true;
+        }
+
+        private void tbx_categoryFilter_TextChanged(object sender, EventArgs e)
+        {
+            FilterVehicleCategories();
+        }
+
+        private void tbx_categoryFilter_Enter(object sender, EventArgs e)
+        {
+            FilterVehicleCategories();
         }
     }
 }

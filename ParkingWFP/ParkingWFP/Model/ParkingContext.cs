@@ -14,13 +14,6 @@ namespace ParkingWFP.Model
             optionsBuilder.UseNpgsql(@"Server=localhost;Port=5432;Database=parkingdb;User Id=postgres;Password=admin");
             base.OnConfiguring(optionsBuilder);
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-            // modelBuilder.Entity<OrderDetail>()
-            // .HasKey(p => new { p.OrderID, p.ProductID });
-        }
         
         public DbSet<User> User { get; set; }
 
@@ -30,6 +23,6 @@ namespace ParkingWFP.Model
         public DbSet<VehicleColor> VehicleColor { get; set; }
         public DbSet<VehicleModel> VehicleModel { get; set; }
 
-        //public DbSet<Parking> Parking { get; set; }
+        public DbSet<Parking> Parking { get; set; }
     }
 }

@@ -10,21 +10,41 @@ namespace ParkingWFP.View.Access
 {
     public partial class Login : Form
     {
-        User user = new User();
+        public User user = new User();
+        public bool isAdmin = false;
+
         public Login()
         {
             InitializeComponent();
         }
 
-        public bool checkForm()
+        private void Login_Load(object sender, EventArgs e)
         {
-            var username = txb_username.Text.Trim();
-            var password = txb_password.Text.Trim();
-            if (string.IsNullOrWhiteSpace(username))
+            PopulateUsers();
+        }
+
+        private void PopulateUsers()
+        {
+            cbx_users.DataSource = user.LoadAdminUsersToList();
+            cbx_users.DisplayMember = "Username";
+            cbx_users.ValueMember = "Username";
+            cbx_users.SelectedIndex = 0;
+        }
+
+        private void cbx_users_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selected = cbx_users.SelectedValue;
+            if (selected == null || selected.GetType() == typeof(User))
             {
-                MessageBox.Show($"Nome de usuário é um campo obrigatório");
-                return false;
+                return;
             }
+
+            user = user.LoadUserByUsername(selected.ToString());
+        }
+
+        public bool isValidUser(User user)
+        {
+            var password = txb_password.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(password))
             {
@@ -32,17 +52,6 @@ namespace ParkingWFP.View.Access
                 return false;
             }
 
-            return true;
-        }
-
-        public bool isValidUser(User user)
-        {
-            if (user == null)
-            {
-                MessageBox.Show($"Usuário não encontrado");
-                return false;
-            }
-            var password = txb_password.Text.Trim();
             if (user.Password != password)
             {
                 MessageBox.Show($"A senha digitada está incorreta");
@@ -54,21 +63,10 @@ namespace ParkingWFP.View.Access
 
         private void btn_login_Click(object sender, EventArgs e)
         {
-            if (checkForm() == false)
-            {
-                return;
-            }
-
-            var username = txb_username.Text.Trim();
-            user = user.LoadUserByUsername(username);
-
             if (isValidUser(user))
             {
-                Application.Run(new Main());
-            }
-            else
-            {
-                MessageBox.Show($"ERRO: Problema ao efetuar o Login");
+                isAdmin = true;
+                Close();
             }
         }
     }

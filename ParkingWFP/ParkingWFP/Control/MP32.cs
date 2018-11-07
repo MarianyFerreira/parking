@@ -4,9 +4,9 @@
 
 using System.Runtime.InteropServices;
 
-namespace Parking
+namespace ParkingWFP
 {
-    class MP32
+    public class MP32
     {
         /* Send a commant to Printer */
         [DllImport("mp2032")]
@@ -28,7 +28,7 @@ namespace Parking
         /* Set Printer Model */
         [DllImport("mp2032")]
         public static extern int ConfiguraModeloImpressora(
-            string iModelo
+            int iModelo
         );
 
         /* Operates the printer's guillotine for paper cutting */
@@ -47,5 +47,13 @@ namespace Parking
             int expandido,
             int enfatizado
         );
+
+        /* Check Printer Status
+         * 24 Printer "ONLINE"
+         * 32 Printer without Paper
+         * 68 Communication Error/ Printer"OFFLINE"
+         * */
+        [DllImport("mp2032")]
+        public static extern int Le_Status();
     }
 }

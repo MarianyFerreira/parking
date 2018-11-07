@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ParkingWFP.Model;
@@ -9,9 +10,10 @@ using ParkingWFP.Model;
 namespace ParkingWFP.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    partial class ParkingContextModelSnapshot : ModelSnapshot
+    [Migration("20181102200812_remove required fields")]
+    partial class removerequiredfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,11 +28,7 @@ namespace ParkingWFP.Migrations
 
                     b.Property<DateTime>("CanceledAt");
 
-                    b.Property<double>("Discount");
-
                     b.Property<DateTime>("FinalizedAt");
-
-                    b.Property<double>("Increase");
 
                     b.Property<string>("Plate")
                         .IsRequired();
@@ -39,8 +37,6 @@ namespace ParkingWFP.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired();
-
-                    b.Property<double>("TotalValue");
 
                     b.Property<int>("VehicleCategory");
 

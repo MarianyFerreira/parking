@@ -1,4 +1,8 @@
-﻿using ParkingWFP.Model;
+﻿/* *************************************************************************************************
+*                       Copyright © 2018 MYF Sotwares. All rights reserved. 
+* *********************************************************************************************** */
+
+using ParkingWFP.Model;
 using System;
 using System.Windows.Forms;
 
@@ -7,15 +11,36 @@ namespace ParkingWFP.View.Vehicles
     public partial class VehicleModelCrud : Form
     {
         VehicleModel vehicleModel = new VehicleModel();
+        VehicleCategory vehicleCategory = new VehicleCategory();
         public VehicleModelCrud()
         {
             InitializeComponent();
         }
 
+        private void VehicleModelCrud_Load(object sender, EventArgs e)
+        {
+            Clear();
+
+        }
+
+        private void PopulateCategories()
+        {
+            cbx_categories.DataSource = vehicleCategory.LoadCategoriesToList();
+            cbx_categories.DisplayMember = "Category";
+            cbx_categories.ValueMember = "IdVehicleCategory";
+            cbx_categories.SelectedIndex = 0;
+        }
+
+
         private void PopulateGrid()
         {
             grid_vehicleModels.AutoGenerateColumns = false;
             grid_vehicleModels.DataSource = vehicleModel.LoadVehicleModelsToList();
+        }
+
+        private void FilterVehicleModel()
+        {
+            grid_vehicleModels.DataSource = vehicleModel.FilterVehicleModelsContains(tbx_modelFilter.Text.Trim());
         }
 
         private void Clear()
@@ -28,11 +53,8 @@ namespace ParkingWFP.View.Vehicles
             vehicleModel.IdVehicleModel = 0;
 
             PopulateGrid();
-        }
-
-        private void VehicleModelCrud_Load(object sender, EventArgs e)
-        {
-            Clear();
+            PopulateCategories();
+            FilterVehicleModel();
         }
 
         private void btn_clearForm_Click(object sender, EventArgs e)
@@ -80,6 +102,7 @@ namespace ParkingWFP.View.Vehicles
                 return;
 
             vehicleModel.Model = tbx_model.Text.Trim();
+            vehicleModel.CategorySuggestion = Convert.ToInt32(cbx_categories.SelectedValue);
             vehicleModel.CreatedAt = vehicleModel.IdVehicleModel == 0 ? DateTime.Now : vehicleModel.CreatedAt;
             vehicleModel.UpdatedAt = DateTime.Now;
 
@@ -99,7 +122,7 @@ namespace ParkingWFP.View.Vehicles
 
         }
 
-        private void grid_vehicleModels_DoubleClick(object sender, EventArgs e)
+        private void grid_vehicleModels_Click(object sender, EventArgs e)
         {
             if (grid_vehicleModels.CurrentRow.Index == -1)
                 return;
@@ -108,9 +131,20 @@ namespace ParkingWFP.View.Vehicles
             vehicleModel = vehicleModel.LoadVehicleModelById(vehicleModel.IdVehicleModel);
 
             tbx_model.Text = vehicleModel.Model;
+            cbx_categories.SelectedValue = vehicleModel.CategorySuggestion;
 
             btn_save.Text = "Atualizar";
             btn_remove.Enabled = true;
+        }
+
+        private void tbx_modelFilter_Enter(object sender, EventArgs e)
+        {
+            FilterVehicleModel();
+        }
+
+        private void tbx_modelFilter_TextChanged(object sender, EventArgs e)
+        {
+            FilterVehicleModel();
         }
     }
 }

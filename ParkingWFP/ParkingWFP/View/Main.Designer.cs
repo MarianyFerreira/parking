@@ -45,9 +45,9 @@ namespace ParkingWFP.View
             this.panel_copyright = new System.Windows.Forms.Panel();
             this.label_copyright = new System.Windows.Forms.Label();
             this.panel_logo = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.lbl_app = new System.Windows.Forms.Label();
             this.panel_main = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_mainMenu.SuspendLayout();
             this.panel_menu.SuspendLayout();
             this.panel_vehiclesOptions.SuspendLayout();
@@ -80,9 +80,9 @@ namespace ParkingWFP.View
             this.panel_menu.Controls.Add(this.btn_parking);
             this.panel_menu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_menu.ForeColor = System.Drawing.Color.White;
-            this.panel_menu.Location = new System.Drawing.Point(0, 137);
+            this.panel_menu.Location = new System.Drawing.Point(0, 185);
             this.panel_menu.Name = "panel_menu";
-            this.panel_menu.Size = new System.Drawing.Size(316, 432);
+            this.panel_menu.Size = new System.Drawing.Size(316, 384);
             this.panel_menu.TabIndex = 1;
             // 
             // panel_vehiclesOptions
@@ -93,7 +93,7 @@ namespace ParkingWFP.View
             this.panel_vehiclesOptions.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel_vehiclesOptions.Location = new System.Drawing.Point(101, 216);
             this.panel_vehiclesOptions.Name = "panel_vehiclesOptions";
-            this.panel_vehiclesOptions.Size = new System.Drawing.Size(215, 216);
+            this.panel_vehiclesOptions.Size = new System.Drawing.Size(215, 168);
             this.panel_vehiclesOptions.TabIndex = 4;
             this.panel_vehiclesOptions.Visible = false;
             // 
@@ -258,25 +258,14 @@ namespace ParkingWFP.View
             this.panel_logo.ForeColor = System.Drawing.Color.White;
             this.panel_logo.Location = new System.Drawing.Point(0, 0);
             this.panel_logo.Name = "panel_logo";
-            this.panel_logo.Size = new System.Drawing.Size(316, 137);
+            this.panel_logo.Size = new System.Drawing.Size(316, 185);
             this.panel_logo.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(41, 72);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 23);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Estacionamento Costeira";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_app
             // 
             this.lbl_app.AutoSize = true;
             this.lbl_app.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_app.Location = new System.Drawing.Point(58, 19);
+            this.lbl_app.Location = new System.Drawing.Point(58, 60);
             this.lbl_app.Name = "lbl_app";
             this.lbl_app.Size = new System.Drawing.Size(197, 45);
             this.lbl_app.TabIndex = 0;
@@ -291,6 +280,17 @@ namespace ParkingWFP.View
             this.panel_main.Name = "panel_main";
             this.panel_main.Size = new System.Drawing.Size(962, 613);
             this.panel_main.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(41, 113);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(230, 23);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Estacionamento Costeira";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Main
             // 
@@ -324,7 +324,6 @@ namespace ParkingWFP.View
         private System.Windows.Forms.Label label_copyright;
         private System.Windows.Forms.Panel panel_menu;
         private System.Windows.Forms.Panel panel_logo;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbl_app;
         private System.Windows.Forms.Button btn_printer;
         private System.Windows.Forms.Button btn_vehicles;
@@ -335,5 +334,6 @@ namespace ParkingWFP.View
         private System.Windows.Forms.Button btn_models;
         private System.Windows.Forms.Button btn_colors;
         private System.Windows.Forms.Button btn_categories;
+        private System.Windows.Forms.Label label1;
     }
 }

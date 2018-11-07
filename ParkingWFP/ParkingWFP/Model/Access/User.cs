@@ -14,6 +14,8 @@ namespace ParkingWFP.Model
     [Table("User")]
     public class User
     {
+        /* MODEL -------------------------------------------------------------------------------- */
+
         [Key]
         public int IdUser { get; set; }
 
@@ -37,94 +39,220 @@ namespace ParkingWFP.Model
         public DateTime UpdatedAt { get; set; }
 
 
+        /* LIST --------------------------------------------------------------------------------- */
+
+        public List<User> LoadAdminUsersToList()
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    return db.User.Where(
+                        dbUser => dbUser.AccessType.Contains("Admin")
+                    ).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar os usuários Admin",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
         public List<User> LoadUsersToList()
         {
-            using (var db = new ParkingContext())
+            try
             {
-                return db.User.ToList();
+                using (var db = new ParkingContext())
+                {
+                    return db.User.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar os usuários",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
+
+        /* SELECT ------------------------------------------------------------------------------- */
+
+        public bool ExistsUsername(string username)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    var user = db.User
+                        .Where(dbUser => dbUser.Username == username)
+                        .FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show(
+                    "Não foi possível verificar a existencia do usuário",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
             }
         }
 
         public User LoadUserById(int id)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                return db.User.Where(dbUser =>
-                    dbUser.IdUser == id
-                ).FirstOrDefault();
+                using (var db = new ParkingContext())
+                {
+                    return db.User.Where(dbUser =>
+                        dbUser.IdUser == id
+                    ).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o usuário usando o código",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
             }
         }
 
         public User LoadUserByUsername(string username)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                return db.User
-                    .Where(dbUser => dbUser.Username == username)
-                    .FirstOrDefault();
-            }
-        }
-
-        public bool ExistsUsername(string username)
-        {
-            using (var db = new ParkingContext())
-            {
-                var user = db.User
-                    .Where(dbUser => dbUser.Username == username)
-                    .FirstOrDefault();
-
-                if (user != null)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    return db.User
+                        .Where(dbUser => dbUser.Username == username)
+                        .FirstOrDefault();
                 }
             }
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o usuário usando o nome de usuário",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
+
+
+        /* INSERT ------------------------------------------------------------------------------- */
 
         public bool InsertUser(User user)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                db.User.Add(user);
-                var count = db.SaveChanges();
-                if (count == 1)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    db.User.Add(user);
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
-
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível inserir o usuário",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
+
+
+        /* INSERT ------------------------------------------------------------------------------- */
 
         public bool UpdateUser(User user)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                db.User.Update(user);
-                var count = db.SaveChanges();
-                if (count == 1)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    db.User.Update(user);
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+
+                    return false;
                 }
             }
-
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível atualizar o usuário",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
- 
+
+        /* REMOVE ------------------------------------------------------------------------------- */
+
         public bool RemoveUser(User user)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                db.User.Remove(user);
-
-                var count = db.SaveChanges();
-                if (count == 1)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    db.User.Remove(user);
+
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
-
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível remover o usuário",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
     }
 }

@@ -7,12 +7,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace ParkingWFP.Model
 {
     [Table("VehicleColor")]
     public class VehicleColor
     {
+        /* MODEL -------------------------------------------------------------------------------- */
+
         [Key]
         public int IdVehicleColor { get; set; }
         [Required]
@@ -23,84 +26,192 @@ namespace ParkingWFP.Model
         [Required]
         public DateTime UpdatedAt { get; set; }
 
+        /* LIST --------------------------------------------------------------------------------- */
+
+        public List<VehicleColor> FilterVehicleColorsContains(string color)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    return db.VehicleColor.Where(
+                        dbVehicleColor => dbVehicleColor.Color.Contains(color)).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível filtrar as cores",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
         public List<VehicleColor> LoadColorsToList()
         {
-            using (var db = new ParkingContext())
+            try
             {
-                return db.VehicleColor.ToList();
+                using (var db = new ParkingContext())
+                {
+                    return db.VehicleColor.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar as cores",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
+        /* SELECT ------------------------------------------------------------------------------- */
+
+        public bool ExistsColor(string colorName)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    var user = db.VehicleColor
+                        .Where(dbColor => dbColor.Color == colorName)
+                        .FirstOrDefault();
+
+                    if (user != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível verificar a existencia da cor",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
             }
         }
 
         public VehicleColor LoadColorById(int id)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                return db.VehicleColor.Where(dbColor =>
-                    dbColor.IdVehicleColor == id
-                ).FirstOrDefault();
-            }
-        }
-
-        public bool ExistsColor(string colorName)
-        {
-            using (var db = new ParkingContext())
-            {
-                var user = db.VehicleColor
-                    .Where(dbColor => dbColor.Color == colorName)
-                    .FirstOrDefault();
-
-                if (user != null)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    return db.VehicleColor.Where(dbColor =>
+                        dbColor.IdVehicleColor == id
+                    ).FirstOrDefault();
                 }
             }
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar a cor usando o código",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
+
+        /* REMOVE ------------------------------------------------------------------------------- */
 
         public bool RemoveColor(VehicleColor color)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                db.VehicleColor.Remove(color);
-
-                var count = db.SaveChanges();
-                if (count == 1)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    db.VehicleColor.Remove(color);
+
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
-
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível remover a cor",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
+
+        /* INSERT ------------------------------------------------------------------------------- */
 
         public bool InsertColor(VehicleColor color)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                db.VehicleColor.Add(color);
-                var count = db.SaveChanges();
-                if (count == 1)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    db.VehicleColor.Add(color);
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
-
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível inserir a cor",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
+
+
+        /* UPDATE ------------------------------------------------------------------------------- */
 
         public bool UpdateColor(VehicleColor color)
         {
-            using (var db = new ParkingContext())
+            try
             {
-                db.VehicleColor.Update(color);
-                var count = db.SaveChanges();
-                if (count == 1)
+                using (var db = new ParkingContext())
                 {
-                    return true;
+                    db.VehicleColor.Update(color);
+                    var count = db.SaveChanges();
+                    if (count == 1)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
-
-            return false;
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível atualizar a cor",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
     }
 }

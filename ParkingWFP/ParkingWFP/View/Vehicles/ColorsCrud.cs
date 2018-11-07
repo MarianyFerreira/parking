@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* *************************************************************************************************
+*                       Copyright © 2018 MYF Sotwares. All rights reserved. 
+* *********************************************************************************************** */
+
+using System;
 using System.Windows.Forms;
 
 namespace ParkingWFP.View.Vehicles
@@ -99,7 +103,7 @@ namespace ParkingWFP.View.Vehicles
 
         }
 
-        private void grid_vehicleColors_DoubleClick(object sender, EventArgs e)
+        private void grid_vehicleColors_Click(object sender, EventArgs e)
         {
             if (grid_vehicleColors.CurrentRow.Index == -1)
                 return;
@@ -111,6 +115,11 @@ namespace ParkingWFP.View.Vehicles
 
             btn_save.Text = "Atualizar";
             btn_remove.Enabled = true;
+        }
+
+        private void tbx_colorFilter_TextChanged(object sender, EventArgs e)
+        {
+            grid_vehicleColors.DataSource = vehicleColor.FilterVehicleColorsContains(tbx_colorFilter.Text.Trim());
         }
     }
 }
