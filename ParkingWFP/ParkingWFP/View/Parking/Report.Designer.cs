@@ -47,24 +47,20 @@ namespace ParkingWFP.View
             this.tbx_startedCategory2 = new System.Windows.Forms.TextBox();
             this.lbl_startedCategory3 = new System.Windows.Forms.Label();
             this.tbx_startedCategory3 = new System.Windows.Forms.TextBox();
-            this.splitter1 = new System.Windows.Forms.Splitter();
-            this.splitter2 = new System.Windows.Forms.Splitter();
-            this.splitter3 = new System.Windows.Forms.Splitter();
-            this.lbl_finalizedCategory3 = new System.Windows.Forms.Label();
             this.tbx_finalizedCategory3 = new System.Windows.Forms.TextBox();
-            this.lbl_finalizedCategory2 = new System.Windows.Forms.Label();
             this.tbx_finalizedCategory2 = new System.Windows.Forms.TextBox();
-            this.lbl_finalizedCategory1 = new System.Windows.Forms.Label();
-            this.splitter4 = new System.Windows.Forms.Splitter();
             this.lbl_caceled = new System.Windows.Forms.Label();
-            this.lbl_caceledCategory3 = new System.Windows.Forms.Label();
-            this.tbx_caceledCategory3 = new System.Windows.Forms.TextBox();
-            this.lbl_caceledCategory2 = new System.Windows.Forms.Label();
-            this.tbx_caceledCategory2 = new System.Windows.Forms.TextBox();
-            this.lbl_caceledCategory1 = new System.Windows.Forms.Label();
-            this.tbx_caceledCategory1 = new System.Windows.Forms.TextBox();
+            this.tbx_canceledCategory3 = new System.Windows.Forms.TextBox();
+            this.tbx_canceledCategory2 = new System.Windows.Forms.TextBox();
+            this.tbx_canceledCategory1 = new System.Windows.Forms.TextBox();
             this.btn_print = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
+            this.cbx_reportedBy = new System.Windows.Forms.ComboBox();
+            this.lbl_reportedBy = new System.Windows.Forms.Label();
+            this.tbx_increase = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbx_discount = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_title.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +73,7 @@ namespace ParkingWFP.View
             this.panel_title.Location = new System.Drawing.Point(0, 0);
             this.panel_title.Margin = new System.Windows.Forms.Padding(4);
             this.panel_title.Name = "panel_title";
-            this.panel_title.Size = new System.Drawing.Size(722, 55);
+            this.panel_title.Size = new System.Drawing.Size(1099, 55);
             this.panel_title.TabIndex = 25;
             // 
             // label_title
@@ -95,304 +91,200 @@ namespace ParkingWFP.View
             // tbx_TotalValue
             // 
             this.tbx_TotalValue.Enabled = false;
-            this.tbx_TotalValue.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_TotalValue.Location = new System.Drawing.Point(364, 485);
+            this.tbx_TotalValue.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_TotalValue.Location = new System.Drawing.Point(161, 457);
             this.tbx_TotalValue.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_TotalValue.Name = "tbx_TotalValue";
-            this.tbx_TotalValue.Size = new System.Drawing.Size(326, 30);
+            this.tbx_TotalValue.Size = new System.Drawing.Size(280, 34);
             this.tbx_TotalValue.TabIndex = 61;
             // 
             // lbl_valueTotal
             // 
             this.lbl_valueTotal.AutoSize = true;
-            this.lbl_valueTotal.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_valueTotal.Location = new System.Drawing.Point(360, 457);
+            this.lbl_valueTotal.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_valueTotal.Location = new System.Drawing.Point(156, 424);
             this.lbl_valueTotal.Margin = new System.Windows.Forms.Padding(28, 22, 14, 22);
             this.lbl_valueTotal.Name = "lbl_valueTotal";
-            this.lbl_valueTotal.Size = new System.Drawing.Size(156, 24);
+            this.lbl_valueTotal.Size = new System.Drawing.Size(190, 29);
             this.lbl_valueTotal.TabIndex = 62;
-            this.lbl_valueTotal.Text = "Total em Caixa:";
+            this.lbl_valueTotal.Text = "Valor em Caixa:";
             // 
             // tbx_startedCategory1
             // 
             this.tbx_startedCategory1.Enabled = false;
-            this.tbx_startedCategory1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_startedCategory1.Location = new System.Drawing.Point(34, 134);
+            this.tbx_startedCategory1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_startedCategory1.Location = new System.Drawing.Point(161, 218);
             this.tbx_startedCategory1.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_startedCategory1.Name = "tbx_startedCategory1";
-            this.tbx_startedCategory1.Size = new System.Drawing.Size(211, 27);
+            this.tbx_startedCategory1.Size = new System.Drawing.Size(279, 34);
             this.tbx_startedCategory1.TabIndex = 60;
             // 
             // lbl_started
             // 
             this.lbl_started.AutoSize = true;
-            this.lbl_started.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_started.Location = new System.Drawing.Point(13, 81);
+            this.lbl_started.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_started.Location = new System.Drawing.Point(156, 179);
             this.lbl_started.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_started.Name = "lbl_started";
-            this.lbl_started.Size = new System.Drawing.Size(206, 23);
+            this.lbl_started.Size = new System.Drawing.Size(271, 29);
             this.lbl_started.TabIndex = 58;
             this.lbl_started.Text = "Veículos estacionados";
             // 
             // tbx_finalizedCategory1
             // 
             this.tbx_finalizedCategory1.Enabled = false;
-            this.tbx_finalizedCategory1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_finalizedCategory1.Location = new System.Drawing.Point(32, 261);
+            this.tbx_finalizedCategory1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_finalizedCategory1.Location = new System.Drawing.Point(476, 218);
             this.tbx_finalizedCategory1.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_finalizedCategory1.Name = "tbx_finalizedCategory1";
-            this.tbx_finalizedCategory1.Size = new System.Drawing.Size(214, 27);
+            this.tbx_finalizedCategory1.Size = new System.Drawing.Size(279, 34);
             this.tbx_finalizedCategory1.TabIndex = 68;
             // 
             // lbl_finalized
             // 
             this.lbl_finalized.AutoSize = true;
-            this.lbl_finalized.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_finalized.Location = new System.Drawing.Point(10, 208);
+            this.lbl_finalized.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_finalized.Location = new System.Drawing.Point(471, 179);
             this.lbl_finalized.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_finalized.Name = "lbl_finalized";
-            this.lbl_finalized.Size = new System.Drawing.Size(187, 23);
+            this.lbl_finalized.Size = new System.Drawing.Size(250, 29);
             this.lbl_finalized.TabIndex = 67;
-            this.lbl_finalized.Text = "Veículos Finalizados";
+            this.lbl_finalized.Text = "Veículos finalizados";
             // 
             // tbx_totalVehicles
             // 
             this.tbx_totalVehicles.Enabled = false;
-            this.tbx_totalVehicles.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_totalVehicles.Location = new System.Drawing.Point(27, 485);
+            this.tbx_totalVehicles.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_totalVehicles.Location = new System.Drawing.Point(476, 103);
             this.tbx_totalVehicles.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_totalVehicles.Name = "tbx_totalVehicles";
-            this.tbx_totalVehicles.Size = new System.Drawing.Size(326, 30);
+            this.tbx_totalVehicles.Size = new System.Drawing.Size(279, 34);
             this.tbx_totalVehicles.TabIndex = 70;
             // 
             // lbl_totalVehicles
             // 
             this.lbl_totalVehicles.AutoSize = true;
-            this.lbl_totalVehicles.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_totalVehicles.Location = new System.Drawing.Point(26, 457);
+            this.lbl_totalVehicles.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_totalVehicles.Location = new System.Drawing.Point(471, 70);
             this.lbl_totalVehicles.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_totalVehicles.Name = "lbl_totalVehicles";
-            this.lbl_totalVehicles.Size = new System.Drawing.Size(179, 24);
+            this.lbl_totalVehicles.Size = new System.Drawing.Size(216, 29);
             this.lbl_totalVehicles.TabIndex = 69;
             this.lbl_totalVehicles.Text = "Total de Veículos:";
             // 
             // lbl_startedCategory1
             // 
             this.lbl_startedCategory1.AutoSize = true;
-            this.lbl_startedCategory1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_startedCategory1.Location = new System.Drawing.Point(33, 111);
+            this.lbl_startedCategory1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_startedCategory1.Location = new System.Drawing.Point(60, 223);
             this.lbl_startedCategory1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_startedCategory1.Name = "lbl_startedCategory1";
-            this.lbl_startedCategory1.Size = new System.Drawing.Size(94, 19);
+            this.lbl_startedCategory1.Size = new System.Drawing.Size(97, 27);
             this.lbl_startedCategory1.TabIndex = 71;
-            this.lbl_startedCategory1.Text = "Categoria 1";
+            this.lbl_startedCategory1.Text = "CARRO";
             // 
             // lbl_startedCategory2
             // 
             this.lbl_startedCategory2.AutoSize = true;
-            this.lbl_startedCategory2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_startedCategory2.Location = new System.Drawing.Point(253, 111);
+            this.lbl_startedCategory2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_startedCategory2.Location = new System.Drawing.Point(23, 285);
             this.lbl_startedCategory2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_startedCategory2.Name = "lbl_startedCategory2";
-            this.lbl_startedCategory2.Size = new System.Drawing.Size(94, 19);
+            this.lbl_startedCategory2.Size = new System.Drawing.Size(132, 27);
             this.lbl_startedCategory2.TabIndex = 73;
-            this.lbl_startedCategory2.Text = "Categoria 2";
+            this.lbl_startedCategory2.Text = "SUV / CAM";
             // 
             // tbx_startedCategory2
             // 
             this.tbx_startedCategory2.Enabled = false;
-            this.tbx_startedCategory2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_startedCategory2.Location = new System.Drawing.Point(253, 134);
+            this.tbx_startedCategory2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_startedCategory2.Location = new System.Drawing.Point(161, 276);
             this.tbx_startedCategory2.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_startedCategory2.Name = "tbx_startedCategory2";
-            this.tbx_startedCategory2.Size = new System.Drawing.Size(214, 27);
+            this.tbx_startedCategory2.Size = new System.Drawing.Size(279, 34);
             this.tbx_startedCategory2.TabIndex = 72;
             // 
             // lbl_startedCategory3
             // 
             this.lbl_startedCategory3.AutoSize = true;
-            this.lbl_startedCategory3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_startedCategory3.Location = new System.Drawing.Point(475, 111);
+            this.lbl_startedCategory3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_startedCategory3.Location = new System.Drawing.Point(74, 340);
             this.lbl_startedCategory3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_startedCategory3.Name = "lbl_startedCategory3";
-            this.lbl_startedCategory3.Size = new System.Drawing.Size(94, 19);
+            this.lbl_startedCategory3.Size = new System.Drawing.Size(83, 27);
             this.lbl_startedCategory3.TabIndex = 75;
-            this.lbl_startedCategory3.Text = "Categoria 3";
+            this.lbl_startedCategory3.Text = "MOTO";
             // 
             // tbx_startedCategory3
             // 
             this.tbx_startedCategory3.Enabled = false;
-            this.tbx_startedCategory3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_startedCategory3.Location = new System.Drawing.Point(476, 134);
+            this.tbx_startedCategory3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_startedCategory3.Location = new System.Drawing.Point(161, 335);
             this.tbx_startedCategory3.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_startedCategory3.Name = "tbx_startedCategory3";
-            this.tbx_startedCategory3.Size = new System.Drawing.Size(214, 27);
+            this.tbx_startedCategory3.Size = new System.Drawing.Size(279, 34);
             this.tbx_startedCategory3.TabIndex = 74;
-            // 
-            // splitter1
-            // 
-            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter1.Location = new System.Drawing.Point(0, 55);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(722, 130);
-            this.splitter1.TabIndex = 78;
-            this.splitter1.TabStop = false;
-            // 
-            // splitter2
-            // 
-            this.splitter2.Location = new System.Drawing.Point(0, 185);
-            this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(3, 411);
-            this.splitter2.TabIndex = 79;
-            this.splitter2.TabStop = false;
-            // 
-            // splitter3
-            // 
-            this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitter3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter3.Location = new System.Drawing.Point(3, 185);
-            this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(719, 130);
-            this.splitter3.TabIndex = 80;
-            this.splitter3.TabStop = false;
-            // 
-            // lbl_finalizedCategory3
-            // 
-            this.lbl_finalizedCategory3.AutoSize = true;
-            this.lbl_finalizedCategory3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_finalizedCategory3.Location = new System.Drawing.Point(475, 238);
-            this.lbl_finalizedCategory3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_finalizedCategory3.Name = "lbl_finalizedCategory3";
-            this.lbl_finalizedCategory3.Size = new System.Drawing.Size(94, 19);
-            this.lbl_finalizedCategory3.TabIndex = 85;
-            this.lbl_finalizedCategory3.Text = "Categoria 3";
             // 
             // tbx_finalizedCategory3
             // 
             this.tbx_finalizedCategory3.Enabled = false;
-            this.tbx_finalizedCategory3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_finalizedCategory3.Location = new System.Drawing.Point(476, 261);
+            this.tbx_finalizedCategory3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_finalizedCategory3.Location = new System.Drawing.Point(476, 335);
             this.tbx_finalizedCategory3.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_finalizedCategory3.Name = "tbx_finalizedCategory3";
-            this.tbx_finalizedCategory3.Size = new System.Drawing.Size(214, 27);
+            this.tbx_finalizedCategory3.Size = new System.Drawing.Size(279, 34);
             this.tbx_finalizedCategory3.TabIndex = 84;
-            // 
-            // lbl_finalizedCategory2
-            // 
-            this.lbl_finalizedCategory2.AutoSize = true;
-            this.lbl_finalizedCategory2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_finalizedCategory2.Location = new System.Drawing.Point(253, 238);
-            this.lbl_finalizedCategory2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_finalizedCategory2.Name = "lbl_finalizedCategory2";
-            this.lbl_finalizedCategory2.Size = new System.Drawing.Size(94, 19);
-            this.lbl_finalizedCategory2.TabIndex = 83;
-            this.lbl_finalizedCategory2.Text = "Categoria 2";
             // 
             // tbx_finalizedCategory2
             // 
             this.tbx_finalizedCategory2.Enabled = false;
-            this.tbx_finalizedCategory2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_finalizedCategory2.Location = new System.Drawing.Point(254, 261);
+            this.tbx_finalizedCategory2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_finalizedCategory2.Location = new System.Drawing.Point(476, 276);
             this.tbx_finalizedCategory2.Margin = new System.Windows.Forms.Padding(4);
             this.tbx_finalizedCategory2.Name = "tbx_finalizedCategory2";
-            this.tbx_finalizedCategory2.Size = new System.Drawing.Size(214, 27);
+            this.tbx_finalizedCategory2.Size = new System.Drawing.Size(279, 34);
             this.tbx_finalizedCategory2.TabIndex = 82;
-            // 
-            // lbl_finalizedCategory1
-            // 
-            this.lbl_finalizedCategory1.AutoSize = true;
-            this.lbl_finalizedCategory1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_finalizedCategory1.Location = new System.Drawing.Point(34, 238);
-            this.lbl_finalizedCategory1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_finalizedCategory1.Name = "lbl_finalizedCategory1";
-            this.lbl_finalizedCategory1.Size = new System.Drawing.Size(94, 19);
-            this.lbl_finalizedCategory1.TabIndex = 81;
-            this.lbl_finalizedCategory1.Text = "Categoria 1";
-            // 
-            // splitter4
-            // 
-            this.splitter4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitter4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.splitter4.Location = new System.Drawing.Point(3, 315);
-            this.splitter4.Name = "splitter4";
-            this.splitter4.Size = new System.Drawing.Size(719, 130);
-            this.splitter4.TabIndex = 86;
-            this.splitter4.TabStop = false;
             // 
             // lbl_caceled
             // 
             this.lbl_caceled.AutoSize = true;
-            this.lbl_caceled.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_caceled.Location = new System.Drawing.Point(13, 339);
+            this.lbl_caceled.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_caceled.Location = new System.Drawing.Point(786, 179);
             this.lbl_caceled.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_caceled.Name = "lbl_caceled";
-            this.lbl_caceled.Size = new System.Drawing.Size(193, 23);
+            this.lbl_caceled.Size = new System.Drawing.Size(251, 29);
             this.lbl_caceled.TabIndex = 87;
             this.lbl_caceled.Text = "Veículos Desistêntes";
             // 
-            // lbl_caceledCategory3
+            // tbx_canceledCategory3
             // 
-            this.lbl_caceledCategory3.AutoSize = true;
-            this.lbl_caceledCategory3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_caceledCategory3.Location = new System.Drawing.Point(475, 371);
-            this.lbl_caceledCategory3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_caceledCategory3.Name = "lbl_caceledCategory3";
-            this.lbl_caceledCategory3.Size = new System.Drawing.Size(94, 19);
-            this.lbl_caceledCategory3.TabIndex = 93;
-            this.lbl_caceledCategory3.Text = "Categoria 3";
+            this.tbx_canceledCategory3.Enabled = false;
+            this.tbx_canceledCategory3.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_canceledCategory3.Location = new System.Drawing.Point(791, 335);
+            this.tbx_canceledCategory3.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_canceledCategory3.Name = "tbx_canceledCategory3";
+            this.tbx_canceledCategory3.Size = new System.Drawing.Size(279, 34);
+            this.tbx_canceledCategory3.TabIndex = 92;
             // 
-            // tbx_caceledCategory3
+            // tbx_canceledCategory2
             // 
-            this.tbx_caceledCategory3.Enabled = false;
-            this.tbx_caceledCategory3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_caceledCategory3.Location = new System.Drawing.Point(476, 394);
-            this.tbx_caceledCategory3.Margin = new System.Windows.Forms.Padding(4);
-            this.tbx_caceledCategory3.Name = "tbx_caceledCategory3";
-            this.tbx_caceledCategory3.Size = new System.Drawing.Size(214, 27);
-            this.tbx_caceledCategory3.TabIndex = 92;
+            this.tbx_canceledCategory2.Enabled = false;
+            this.tbx_canceledCategory2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_canceledCategory2.Location = new System.Drawing.Point(791, 276);
+            this.tbx_canceledCategory2.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_canceledCategory2.Name = "tbx_canceledCategory2";
+            this.tbx_canceledCategory2.Size = new System.Drawing.Size(279, 34);
+            this.tbx_canceledCategory2.TabIndex = 90;
             // 
-            // lbl_caceledCategory2
+            // tbx_canceledCategory1
             // 
-            this.lbl_caceledCategory2.AutoSize = true;
-            this.lbl_caceledCategory2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_caceledCategory2.Location = new System.Drawing.Point(253, 371);
-            this.lbl_caceledCategory2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_caceledCategory2.Name = "lbl_caceledCategory2";
-            this.lbl_caceledCategory2.Size = new System.Drawing.Size(94, 19);
-            this.lbl_caceledCategory2.TabIndex = 91;
-            this.lbl_caceledCategory2.Text = "Categoria 2";
-            // 
-            // tbx_caceledCategory2
-            // 
-            this.tbx_caceledCategory2.Enabled = false;
-            this.tbx_caceledCategory2.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_caceledCategory2.Location = new System.Drawing.Point(254, 394);
-            this.tbx_caceledCategory2.Margin = new System.Windows.Forms.Padding(4);
-            this.tbx_caceledCategory2.Name = "tbx_caceledCategory2";
-            this.tbx_caceledCategory2.Size = new System.Drawing.Size(214, 27);
-            this.tbx_caceledCategory2.TabIndex = 90;
-            // 
-            // lbl_caceledCategory1
-            // 
-            this.lbl_caceledCategory1.AutoSize = true;
-            this.lbl_caceledCategory1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_caceledCategory1.Location = new System.Drawing.Point(34, 371);
-            this.lbl_caceledCategory1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lbl_caceledCategory1.Name = "lbl_caceledCategory1";
-            this.lbl_caceledCategory1.Size = new System.Drawing.Size(94, 19);
-            this.lbl_caceledCategory1.TabIndex = 89;
-            this.lbl_caceledCategory1.Text = "Categoria 1";
-            // 
-            // tbx_caceledCategory1
-            // 
-            this.tbx_caceledCategory1.Enabled = false;
-            this.tbx_caceledCategory1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbx_caceledCategory1.Location = new System.Drawing.Point(32, 394);
-            this.tbx_caceledCategory1.Margin = new System.Windows.Forms.Padding(4);
-            this.tbx_caceledCategory1.Name = "tbx_caceledCategory1";
-            this.tbx_caceledCategory1.Size = new System.Drawing.Size(214, 27);
-            this.tbx_caceledCategory1.TabIndex = 59;
+            this.tbx_canceledCategory1.Enabled = false;
+            this.tbx_canceledCategory1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_canceledCategory1.Location = new System.Drawing.Point(791, 218);
+            this.tbx_canceledCategory1.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_canceledCategory1.Name = "tbx_canceledCategory1";
+            this.tbx_canceledCategory1.Size = new System.Drawing.Size(279, 34);
+            this.tbx_canceledCategory1.TabIndex = 59;
             // 
             // btn_print
             // 
@@ -400,10 +292,10 @@ namespace ParkingWFP.View
             this.btn_print.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.btn_print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_print.ForeColor = System.Drawing.Color.White;
-            this.btn_print.Location = new System.Drawing.Point(468, 533);
+            this.btn_print.Location = new System.Drawing.Point(790, 513);
             this.btn_print.Margin = new System.Windows.Forms.Padding(4);
             this.btn_print.Name = "btn_print";
-            this.btn_print.Size = new System.Drawing.Size(222, 50);
+            this.btn_print.Size = new System.Drawing.Size(280, 50);
             this.btn_print.TabIndex = 94;
             this.btn_print.Text = "Imprimir";
             this.btn_print.UseVisualStyleBackColor = false;
@@ -415,40 +307,100 @@ namespace ParkingWFP.View
             this.btn_save.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.btn_save.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_save.ForeColor = System.Drawing.Color.White;
-            this.btn_save.Location = new System.Drawing.Point(235, 533);
+            this.btn_save.Location = new System.Drawing.Point(476, 513);
             this.btn_save.Margin = new System.Windows.Forms.Padding(4);
             this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(222, 50);
+            this.btn_save.Size = new System.Drawing.Size(279, 50);
             this.btn_save.TabIndex = 96;
             this.btn_save.Text = "Salvar";
             this.btn_save.UseVisualStyleBackColor = false;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
+            // cbx_reportedBy
+            // 
+            this.cbx_reportedBy.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbx_reportedBy.FormattingEnabled = true;
+            this.cbx_reportedBy.Location = new System.Drawing.Point(791, 104);
+            this.cbx_reportedBy.Name = "cbx_reportedBy";
+            this.cbx_reportedBy.Size = new System.Drawing.Size(279, 34);
+            this.cbx_reportedBy.TabIndex = 101;
+            this.cbx_reportedBy.SelectedValueChanged += new System.EventHandler(this.cbx_reportedBy_SelectedValueChanged);
+            // 
+            // lbl_reportedBy
+            // 
+            this.lbl_reportedBy.AutoSize = true;
+            this.lbl_reportedBy.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_reportedBy.Location = new System.Drawing.Point(786, 74);
+            this.lbl_reportedBy.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl_reportedBy.Name = "lbl_reportedBy";
+            this.lbl_reportedBy.Size = new System.Drawing.Size(160, 29);
+            this.lbl_reportedBy.TabIndex = 102;
+            this.lbl_reportedBy.Text = "Responsável";
+            // 
+            // tbx_increase
+            // 
+            this.tbx_increase.Enabled = false;
+            this.tbx_increase.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_increase.Location = new System.Drawing.Point(476, 457);
+            this.tbx_increase.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_increase.Name = "tbx_increase";
+            this.tbx_increase.Size = new System.Drawing.Size(279, 34);
+            this.tbx_increase.TabIndex = 106;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(471, 424);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(154, 29);
+            this.label2.TabIndex = 105;
+            this.label2.Text = "Acréscimos:";
+            // 
+            // tbx_discount
+            // 
+            this.tbx_discount.Enabled = false;
+            this.tbx_discount.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbx_discount.Location = new System.Drawing.Point(791, 457);
+            this.tbx_discount.Margin = new System.Windows.Forms.Padding(4);
+            this.tbx_discount.Name = "tbx_discount";
+            this.tbx_discount.Size = new System.Drawing.Size(279, 34);
+            this.tbx_discount.TabIndex = 108;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(786, 424);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 29);
+            this.label1.TabIndex = 107;
+            this.label1.Text = "Descontos:";
             // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(722, 596);
+            this.ClientSize = new System.Drawing.Size(1099, 590);
+            this.Controls.Add(this.tbx_discount);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbx_increase);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbl_reportedBy);
+            this.Controls.Add(this.cbx_reportedBy);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.btn_print);
-            this.Controls.Add(this.lbl_caceledCategory3);
-            this.Controls.Add(this.tbx_caceledCategory3);
-            this.Controls.Add(this.lbl_caceledCategory2);
-            this.Controls.Add(this.tbx_caceledCategory2);
-            this.Controls.Add(this.lbl_caceledCategory1);
-            this.Controls.Add(this.tbx_caceledCategory1);
+            this.Controls.Add(this.tbx_canceledCategory3);
+            this.Controls.Add(this.tbx_canceledCategory2);
+            this.Controls.Add(this.tbx_canceledCategory1);
             this.Controls.Add(this.lbl_caceled);
-            this.Controls.Add(this.splitter4);
-            this.Controls.Add(this.lbl_finalizedCategory3);
             this.Controls.Add(this.tbx_finalizedCategory3);
-            this.Controls.Add(this.lbl_finalizedCategory2);
             this.Controls.Add(this.tbx_finalizedCategory2);
-            this.Controls.Add(this.lbl_finalizedCategory1);
             this.Controls.Add(this.tbx_finalizedCategory1);
             this.Controls.Add(this.lbl_finalized);
-            this.Controls.Add(this.splitter3);
-            this.Controls.Add(this.splitter2);
             this.Controls.Add(this.lbl_startedCategory3);
             this.Controls.Add(this.tbx_startedCategory3);
             this.Controls.Add(this.lbl_startedCategory2);
@@ -456,7 +408,6 @@ namespace ParkingWFP.View
             this.Controls.Add(this.lbl_startedCategory1);
             this.Controls.Add(this.tbx_startedCategory1);
             this.Controls.Add(this.lbl_started);
-            this.Controls.Add(this.splitter1);
             this.Controls.Add(this.tbx_totalVehicles);
             this.Controls.Add(this.lbl_totalVehicles);
             this.Controls.Add(this.tbx_TotalValue);
@@ -465,7 +416,6 @@ namespace ParkingWFP.View
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(740, 640);
             this.Name = "Report";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Report_Load);
@@ -493,23 +443,19 @@ namespace ParkingWFP.View
         private System.Windows.Forms.TextBox tbx_startedCategory2;
         private System.Windows.Forms.Label lbl_startedCategory3;
         private System.Windows.Forms.TextBox tbx_startedCategory3;
-        private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.Splitter splitter2;
-        private System.Windows.Forms.Splitter splitter3;
-        private System.Windows.Forms.Label lbl_finalizedCategory3;
         private System.Windows.Forms.TextBox tbx_finalizedCategory3;
-        private System.Windows.Forms.Label lbl_finalizedCategory2;
         private System.Windows.Forms.TextBox tbx_finalizedCategory2;
-        private System.Windows.Forms.Label lbl_finalizedCategory1;
-        private System.Windows.Forms.Splitter splitter4;
         private System.Windows.Forms.Label lbl_caceled;
-        private System.Windows.Forms.Label lbl_caceledCategory3;
-        private System.Windows.Forms.TextBox tbx_caceledCategory3;
-        private System.Windows.Forms.Label lbl_caceledCategory2;
-        private System.Windows.Forms.TextBox tbx_caceledCategory2;
-        private System.Windows.Forms.Label lbl_caceledCategory1;
-        private System.Windows.Forms.TextBox tbx_caceledCategory1;
+        private System.Windows.Forms.TextBox tbx_canceledCategory3;
+        private System.Windows.Forms.TextBox tbx_canceledCategory2;
+        private System.Windows.Forms.TextBox tbx_canceledCategory1;
         private System.Windows.Forms.Button btn_print;
         private System.Windows.Forms.Button btn_save;
+        private System.Windows.Forms.ComboBox cbx_reportedBy;
+        private System.Windows.Forms.Label lbl_reportedBy;
+        private System.Windows.Forms.TextBox tbx_increase;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbx_discount;
+        private System.Windows.Forms.Label label1;
     }
 }

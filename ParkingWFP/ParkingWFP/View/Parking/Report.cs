@@ -4,6 +4,7 @@
 
 using ParkingWFP.Control;
 using ParkingWFP.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -13,6 +14,7 @@ namespace ParkingWFP.View
 {
     public partial class Report : Form
     {
+        User user = new User();
         PrinterControl printerControl = new PrinterControl();
 
         Parking parking = new Parking();
@@ -21,15 +23,28 @@ namespace ParkingWFP.View
         ReportDetail started = new ReportDetail { Category1 = 0, Category2 = 0, Category3 = 0};
         ReportDetail finalized = new ReportDetail { Category1 = 0, Category2 = 0, Category3 = 0, TotalValue = 0.0 };
         ReportDetail canceled = new ReportDetail { Category1 = 0, Category2 = 0, Category3 = 0 };
+        double discount = 0.0;
+        double increase = 0.0;
 
         public Report()
         {
             InitializeComponent();
 
-            parkingList = parking.LoadParkingsToList();
+            LoadReport();
         }
 
-        private void Report_Load(object sender, System.EventArgs e)
+        private void Report_Load(object sender, EventArgs e)
+        {
+            var users = user.LoadUsersToList();
+
+            cbx_reportedBy.Items.Add("TODOS");
+            foreach (User item in users)
+            {
+                cbx_reportedBy.Items.Add(item.Username);
+            }
+        }
+
+        private void LoadReport()
         {
             CalculateParkingReport();
 
@@ -41,28 +56,38 @@ namespace ParkingWFP.View
             tbx_finalizedCategory2.Text = finalized.Category2.ToString();
             tbx_finalizedCategory3.Text = finalized.Category3.ToString();
 
-            tbx_caceledCategory1.Text = canceled.Category1.ToString();
-            tbx_caceledCategory2.Text = canceled.Category2.ToString();
-            tbx_caceledCategory3.Text = canceled.Category3.ToString();
+            tbx_canceledCategory1.Text = canceled.Category1.ToString();
+            tbx_canceledCategory2.Text = canceled.Category2.ToString();
+            tbx_canceledCategory3.Text = canceled.Category3.ToString();
 
             tbx_totalVehicles.Text = parkingList.Count.ToString();
             tbx_TotalValue.Text = finalized.TotalValue.ToString();
+            tbx_discount.Text = discount.ToString();
+            tbx_increase.Text = increase.ToString();
         }
 
         private void CalculateParkingReport()
         {
+            started = new ReportDetail { Category1 = 0, Category2 = 0, Category3 = 0 };
+            finalized = new ReportDetail { Category1 = 0, Category2 = 0, Category3 = 0, TotalValue = 0.0 };
+            canceled = new ReportDetail { Category1 = 0, Category2 = 0, Category3 = 0 };
+            discount = 0.0;
+            increase = 0.0;
+
             foreach (Parking item in parkingList)
             {
                 switch (item.Status)
                 {
-                    case "Em Aberto":
+                    case "EM ABERTO":
                         started = UpdateReportDetailCategories(started, item);
                         break;
-                    case "Finalizado":
+                    case "FINALIZADO":
                         finalized = UpdateReportDetailCategories(finalized, item);
                         finalized.TotalValue = finalized.TotalValue + item.TotalValue;
+                        discount = discount + item.Discount;
+                        increase = increase + item.Increase;
                         break;
-                    case "Desistencia":
+                    case "DESISTENCIA":
                         canceled = UpdateReportDetailCategories(canceled, item);
                         break;
                     default:
@@ -92,30 +117,49 @@ namespace ParkingWFP.View
 
         private string MountReport()
         {
-            string Report = "VEÍCULOS NO ESTACIONAMENTO\n";
-            Report += "C 1 - " + started.Category1.ToString() + "\n";
-            Report += "C 2 - " + started.Category2.ToString() + "\n";
-            Report += "C 3 - " + started.Category3.ToString() + "\n\n";
+            var selected = cbx_reportedBy.SelectedValue;
+            if (selected != null && selected.GetType() != typeof(User))
+            {
+                user = user.LoadUserById(Convert.ToInt32(selected));
+            }
+            else
+            {
+                user = user.LoadUserById(1);
+            }
+
+            string Report = "RESPONSÁVEL " + user.Username + "\n\n";
+
+            Report += "VECÍCULOS NO ESTACIONAMENTO\n";
+            Report += "CARRO " + started.Category1.ToString() + "\n";
+            Report += "SUV/CAM " + started.Category2.ToString() + "\n";
+            Report += "MOTO " + started.Category3.ToString() + "\n\n";
 
             Report += "VECÍCULOS FINALIZADOS\n";
-            Report += "C 1 - " + finalized.Category1.ToString() + "\n";
-            Report += "C 2 - " + finalized.Category2.ToString() + "\n";
-            Report += "C 3 - " + finalized.Category3.ToString() + "\n\n";
+            Report += "CARRO " + finalized.Category1.ToString() + "\n";
+            Report += "SUV/CAM " + finalized.Category2.ToString() + "\n";
+            Report += "MOTO " + finalized.Category3.ToString() + "\n\n";
 
             Report += "VEÍCULOS DESISTENTES\n";
-            Report += "C 1 - " + canceled.Category1.ToString() + "\n";
-            Report += "C 2 - " + canceled.Category2.ToString() + "\n";
-            Report += "C 3 - " + canceled.Category3.ToString() + "\n\n";
+            Report += "CARRO " + canceled.Category1.ToString() + "\n";
+            Report += "SUV/CAM " + canceled.Category2.ToString() + "\n";
+            Report += "MOTO " + canceled.Category3.ToString() + "\n\n";
 
-            Report += "TOTAL VEÍCULOS - " + parkingList.Count.ToString() + "\n";
-            Report += "TOTAL CAIXA - " + finalized.TotalValue.ToString() + "\n\n";
+            Report += "TOTAL VEÍCULOS " + parkingList.Count.ToString() + "\n\n";
+
+            Report += "DESCONTOS R$:" + discount.ToString() + "\n";
+            Report += "ACRESCIMOS R$:" + increase.ToString() + "\n\n";
+
+            Report += "TOTAL EM CAIXA R$:" + finalized.TotalValue.ToString() + "\n\n";
 
             return Report;
         }
         private void btn_print_Click(object sender, System.EventArgs e)
         {
-            string Report = MountReport();
-            printerControl.PrintMultilineText(0, false, 0, 2, 0, 0, Report);
+            string report = MountReport();
+
+            printerControl.SetupPrinterModel();
+            printerControl.SetupPrinterConnection();
+            printerControl.PrintMultilineText(0, false, 0, 2, 0, 0, report);
             printerControl.CutPaper();
         }
 
@@ -151,6 +195,27 @@ namespace ParkingWFP.View
                     );
                 }
             }
+        }
+
+        private void cbx_reportedBy_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selected = cbx_reportedBy.SelectedItem;
+            try {
+                var userSelected = user.LoadUserByUsername(selected.ToString());
+                if (userSelected != null)
+                {
+                    parkingList = parking.LoadParkingsToListFilteredByRegisteredBy(userSelected.IdUser);
+                } else
+                {
+                    parkingList = parking.LoadParkingsToList();
+                    cbx_reportedBy.SelectedIndex = 0;
+                }
+            } catch
+            {
+                parkingList = parking.LoadParkingsToList();
+                cbx_reportedBy.SelectedIndex = 0;
+            }
+            LoadReport();
         }
     }
 }

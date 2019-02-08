@@ -26,6 +26,9 @@ namespace ParkingWFP.Migrations
 
                     b.Property<DateTime>("CanceledAt");
 
+                    b.Property<string>("Code")
+                        .IsRequired();
+
                     b.Property<double>("Discount");
 
                     b.Property<DateTime>("FinalizedAt");
@@ -34,6 +37,8 @@ namespace ParkingWFP.Migrations
 
                     b.Property<string>("Plate")
                         .IsRequired();
+
+                    b.Property<int>("RegisteredBy");
 
                     b.Property<DateTime>("StartedAt");
 

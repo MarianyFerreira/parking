@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace ParkingWFP.Model
 
         [Key]
         public int IdParking { get; set; }
+
+        [Required]
+        public string Code { get; set; }
 
         [Required]
         public string Plate { get; set; }
@@ -37,6 +41,9 @@ namespace ParkingWFP.Model
         public double TotalValue { get; set; }
 
         [Required]
+        public int RegisteredBy { get; set; }
+
+        [Required]
         public DateTime StartedAt { get; set; }
 
         public DateTime FinalizedAt { get; set; }
@@ -47,6 +54,17 @@ namespace ParkingWFP.Model
         public string Status { get; set; }
 
         /* LIST --------------------------------------------------------------------------------- */
+
+        public static string CodeGenerator()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var result = new string(
+                Enumerable.Repeat(chars, 4)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            return result;
+        }
 
         public List<Parking> LoadParkingsToList()
         {
@@ -69,6 +87,29 @@ namespace ParkingWFP.Model
             }
         }
 
+        public List<Parking> LoadParkingsToListFilteredByRegisteredBy(int IdUser)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    return db.Parking.Where(
+                        dbParking => dbParking.RegisteredBy == IdUser
+                    ).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar os estacionamentos",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
         public List<Parking> LoadNotFinishParkingsToList()
         {
             try
@@ -76,7 +117,7 @@ namespace ParkingWFP.Model
                 using (var db = new ParkingContext())
                 {
                     return db.Parking.Where(
-                        dbParking => dbParking.Status != "Finalizado"
+                        dbParking => dbParking.Status != "FINALIZADO"
                     ).ToList();
                 }
             }
@@ -91,6 +132,33 @@ namespace ParkingWFP.Model
                 throw;
             }
 
+        }
+
+        public List<Parking> FilterParking(string value)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    return db.Parking.Where(
+                        dbParking =>
+                            dbParking.Plate.Contains(value.ToUpper())
+                            || dbParking.Status.Contains(value.ToUpper())
+                            || dbParking.Code.Contains(value.ToUpper()))
+                    .OrderByDescending(r => r.StartedAt)
+                    .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível filtrar as cores",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
         }
 
         /* SELECT ------------------------------------------------------------------------------- */
@@ -124,6 +192,35 @@ namespace ParkingWFP.Model
             }
         }
 
+        public bool ExistsParkingCode(string code)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    var parking = db.Parking
+                        .Where(dbParking => dbParking.Code == code)
+                        .FirstOrDefault();
+
+                    if (parking != null)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível verificar a existência do estacionamento usando a placa",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
         public bool ExistsParkingStarted()
         {
             try
@@ -131,7 +228,7 @@ namespace ParkingWFP.Model
                 using (var db = new ParkingContext())
                 {
                     var parking = db.Parking
-                        .Where(dbParking => dbParking.Status.Contains("Em Aberto"))
+                        .Where(dbParking => dbParking.Status.Contains("EM ABERTO"))
                         .FirstOrDefault();
 
                     if (parking != null)
@@ -153,14 +250,14 @@ namespace ParkingWFP.Model
             }
         }
 
-        public Parking LoadParkingById(int id)
+        public Parking LoadParkingByCode(string code)
         {
             try
             {
                 using (var db = new ParkingContext())
                 {
                     return db.Parking.Where(dbParking =>
-                        dbParking.IdParking == id
+                        dbParking.Code == code
                     ).FirstOrDefault();
                 }
             }

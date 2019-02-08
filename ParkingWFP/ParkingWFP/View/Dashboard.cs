@@ -7,6 +7,8 @@ using ParkingWFP.Model;
 using ParkingWFP.View.Access;
 using ParkingWFP.View.Vehicles;
 using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ParkingWFP.View
@@ -22,17 +24,21 @@ namespace ParkingWFP.View
         VehicleCategory vehicleCategory = new VehicleCategory();
         VehicleColor vehicleColor = new VehicleColor();
 
+        public User user = new User();
+
         public Dashboard()
         {
             InitializeComponent();
         }
+
+        // START PARKING FORM ------------------------------------------------------------
 
         private void PopulateModelsCombobox()
         {
             cbx_models.DataSource = vehicleModel.LoadVehicleModelsToList();
             cbx_models.DisplayMember = "Model";
             cbx_models.ValueMember = "IdVehicleModel";
-            cbx_models.SelectedValue = -1;
+            cbx_models.SelectedIndex = 1;
         }
 
         private void PopulateCategoriesCombobox()
@@ -40,7 +46,7 @@ namespace ParkingWFP.View
             cbx_categories.DataSource = vehicleCategory.LoadCategoriesToList();
             cbx_categories.DisplayMember = "Category";
             cbx_categories.ValueMember = "IdVehicleCategory";
-            cbx_categories.SelectedValue = -1;
+            cbx_categories.SelectedValue = 1;
         }
 
         private void PopulateColorsCombobox()
@@ -48,7 +54,7 @@ namespace ParkingWFP.View
             cbx_colors.DataSource = vehicleColor.LoadColorsToList();
             cbx_colors.DisplayMember = "Color";
             cbx_colors.ValueMember = "IdVehicleColor";
-            cbx_colors.SelectedValue = -1;
+            cbx_colors.SelectedValue = 1;
         }
         private void PopulateStartComboboxes()
         {
@@ -57,105 +63,22 @@ namespace ParkingWFP.View
             PopulateColorsCombobox();
         }
 
-        private void PopulateFinishComboboxes()
-        {
-            parking.IdParking = 0;
-            var parkinkList = parking.LoadNotFinishParkingsToList();
-            cbx_plate.DataSource = parkinkList;
-            cbx_plate.DisplayMember = "Plate";
-            cbx_plate.ValueMember = "Plate";
-            cbx_plate.SelectedValue = -1;
-
-            cbx_parkingId.DataSource = parkinkList;
-            cbx_parkingId.DisplayMember = "IdParking";
-            cbx_parkingId.ValueMember = "IdParking";
-            cbx_parkingId.SelectedValue = -1;
-        }
-
-        private void PopulateGrid()
-        {
-            grid_parking.AutoGenerateColumns = false;
-            grid_parking.DataSource = parking.LoadParkingsToList();
-        }
-
         private void ClearStartParkingForm()
         {
-            parking.IdParking = 0;
+            parking = new Parking();
+            vehicleModel = new VehicleModel();
+            vehicleCategory = new VehicleCategory();
+            vehicleColor = new VehicleColor();
+
             tbx_plate.Text = "";
-
-            vehicleModel.IdVehicleModel = 0;
-            cbx_models.SelectedValue = -1;
-
-            vehicleCategory.IdVehicleCategory = 0;
-            cbx_categories.SelectedValue = -1;
-
-            vehicleColor.IdVehicleColor = 0;
-            cbx_colors.SelectedValue = -1;
-
-            PopulateGrid();
-            PopulateFinishComboboxes();
-        }
-
-        private void ClearFinishParkingForm()
-        {
-            parking.IdParking = 0;
-            parking.Plate = "";
-
-            cbx_plate.SelectedValue = -1;
-            cbx_parkingId.SelectedValue = -1;
-            PopulateFinishComboboxes();
-
-            tbx_ModelDescription.Text = "";
-            tbx_categoryDescription.Text = "";
-            tbx_colorDescription.Text = "";
-
-            btn_finishParking.Enabled = true;
-            btn_cancelParking.Text = "Desistência";
-
-            PopulateGrid();
-        }
-
-        private void Clear()
-        {
-            ClearStartParkingForm();
-            ClearFinishParkingForm();
-        }
-
-
-        private void TestPrinterConnection()
-        {
-            var status = printerControl.GetPrinterStatus();
-
-            switch (status)
-            {
-                case 0:
-                    MessageBox.Show("Não foi possível estabelecer a conexão");
-                    break;
-                case 5:
-                    MessageBox.Show("Impressora com pouco papel");
-                    break;
-                case 9:
-                    MessageBox.Show("Impressora com tampa aberta");
-                    break;
-                case 24:
-                    MessageBox.Show("Conexão bem sucedida");
-                    break;
-                case 32:
-                    MessageBox.Show("Impressora sem papel");
-                    break;
-            }
-        }
-
-        private void Dashboard_Load(object sender, EventArgs e)
-        {
-            printer = printer.LoadPrinter();
-            printerControl.SetupPrinterModel();
-            printerControl.SetupPrinterConnection();
+            tbx_plate.Focus();
 
             PopulateStartComboboxes();
+            cbx_models.SelectedValue = 1;
+            cbx_categories.SelectedValue = 1;
+            cbx_colors.SelectedValue = 1;
+
             PopulateFinishComboboxes();
-            PopulateGrid();
-            Clear();
         }
 
         private void btn_clearStartForm_Click(object sender, EventArgs e)
@@ -170,15 +93,120 @@ namespace ParkingWFP.View
 
         private void cbx_models_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selected = cbx_models.SelectedValue;
-            if (selected == null || selected.GetType() == typeof(VehicleModel))
+            try
+            {
+                var modelSelectedValue = Convert.ToInt32(cbx_models.SelectedValue);
+                vehicleModel = vehicleModel.LoadVehicleModelById(modelSelectedValue);
+                if (vehicleModel != null)
+                {
+                    cbx_categories.SelectedValue = vehicleModel.CategorySuggestion;
+                }
+            } catch
             {
                 return;
             }
-
-            vehicleModel = vehicleModel.LoadVehicleModelById(Convert.ToInt32(selected));
-            cbx_categories.SelectedValue = vehicleModel.CategorySuggestion;
         }
+
+        // GENERAL DASHBOARD ------------------------------------------------------------
+
+        void ApplyRowColors(int row)
+        {
+            var status = grid_parking.Rows[row].Cells["Status"].Value.ToString();
+
+            switch (status)
+            {
+                case "EM ABERTO":
+                    grid_parking.Rows[row].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
+                    break;
+                case "FINALIZADO":
+                    grid_parking.Rows[row].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
+                    break;
+                case "DESISTENCIA":
+                    grid_parking.Rows[row].DefaultCellStyle.BackColor = System.Drawing.Color.LightPink;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void SetRowParkingCategoryModelColor( int row)
+        {
+
+            string Code = grid_parking.Rows[row].Cells["Code"].Value.ToString();
+            Parking current = parking.LoadParkingByCode(Code);
+
+            grid_parking.Rows[row].Cells["Color"].Value = vehicleColor.LoadColorById(current.VehicleColor).Color;
+            grid_parking.Rows[row].Cells["Category"].Value = vehicleCategory.LoadCategoryById(current.VehicleCategory).Category;
+            grid_parking.Rows[row].Cells["Model"].Value = vehicleModel.LoadVehicleModelById(current.VehicleModel).Model;
+
+        }
+        private void PopulateGrid()
+        {
+            try
+            {
+                grid_parking.AutoGenerateColumns = false;
+                grid_parking.DataSource = parking.FilterParking(tbx_filter.Text.Trim());
+
+                
+                for (int row = 0; row < grid_parking.Rows.Count; row++)
+                {
+                    ApplyRowColors(row);
+                    SetRowParkingCategoryModelColor(row);
+                }
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+        }
+
+        private void Clear()
+        {
+            parking = new Parking();
+            ClearStartParkingForm();
+            ClearFinishParkingForm();
+            PopulateGrid();
+        }
+
+        // FINISH PARKING FORM ------------------------------------------------------------
+
+        private void PopulateFinishComboboxes()
+        {
+            parking = new Parking();
+            vehicleModel = new VehicleModel();
+            vehicleCategory = new VehicleCategory();
+            vehicleColor = new VehicleColor();
+
+            var parkinkList = parking.LoadParkingsToList();
+            cbx_plate.DataSource = parkinkList;
+            cbx_plate.DisplayMember = "Plate";
+            cbx_plate.ValueMember = "Plate";
+            cbx_plate.SelectedValue = -1;
+        }
+
+        private void ClearFinishParkingForm()
+        {
+            PopulateFinishComboboxes();
+
+            parking.IdParking = 0;
+            parking.Plate = "";
+            cbx_plate.SelectedValue = -1;
+
+
+            vehicleModel.IdVehicleModel = 1;
+            tbx_ModelDescription.Text = "";
+
+            vehicleCategory.IdVehicleCategory = 1;
+            tbx_categoryDescription.Text = "";
+
+            vehicleColor.IdVehicleColor = 1;
+            tbx_colorDescription.Text = "";
+
+            btn_finishParking.Enabled = true;
+            btn_cancelParking.Text = "Desistência";
+        }
+
+        // --------------------------------------------------------------------------------------------
 
         private void btn_models_Click(object sender, EventArgs e)
         {
@@ -192,7 +220,7 @@ namespace ParkingWFP.View
         private void btn_categories_Click(object sender, EventArgs e)
         {
             bool admin = false;
-            using ( var loginForm = new Login())
+            using ( var loginForm = new AdminLogin())
             {
                 loginForm.ShowDialog();
                 admin = loginForm.isAdmin;
@@ -254,6 +282,22 @@ namespace ParkingWFP.View
 
         }
 
+        public string RandomAlfanumeric()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var result = new string(
+                Enumerable.Repeat(chars, 4)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+
+            if (parking.ExistsParkingCode(result)) {
+                return RandomAlfanumeric();
+            } else {
+                return result;
+            }
+        }
+
         private void btn_startParking_Click(object sender, EventArgs e)
         {
             if (isValidParking() == false)
@@ -261,12 +305,17 @@ namespace ParkingWFP.View
                 return;
             }
 
+            parking.Code = RandomAlfanumeric();
             parking.Plate = tbx_plate.Text.Trim();
             parking.VehicleModel = Convert.ToInt32(cbx_models.SelectedValue);
             parking.VehicleCategory = Convert.ToInt32(cbx_categories.SelectedValue);
             parking.VehicleColor = Convert.ToInt32(cbx_colors.SelectedValue);
             parking.StartedAt = DateTime.Now;
-            parking.Status = "Em Aberto";
+            parking.TotalValue = 0.0;
+            parking.CanceledAt = default(DateTime);
+            parking.FinalizedAt = default(DateTime);
+            parking.Status = "EM ABERTO";
+            parking.RegisteredBy = user.IdUser;
 
             bool completed = parking.InsertParking(parking);
 
@@ -277,8 +326,8 @@ namespace ParkingWFP.View
                 var model = vehicleModel.LoadVehicleModelById(parking.VehicleModel).Model;
                 printerControl.PrintStartParking(parking, category, color, model);
                 ClearStartParkingForm();
-
-                MessageBox.Show("Operação concluída, imprimindo recibo");
+                PopulateGrid();
+                tbx_plate.Focus();
             }
             else
                 MessageBox.Show("ERRO: Problema ao executar operação no banco de dados");
@@ -286,24 +335,25 @@ namespace ParkingWFP.View
 
         private void grid_parking_Click(object sender, EventArgs e)
         {
-            if (grid_parking.CurrentRow.Index == -1)
-                return;
+            try
+            {
+                if (grid_parking.CurrentRow.Index == -1)
+                    return;
 
-            if (grid_parking.CurrentRow.Cells["Status"].Value.ToString() == "Finalizado")
+                string Plate = grid_parking.CurrentRow.Cells["Plate"].Value.ToString();
+                cbx_plate.SelectedValue = Plate;
+                LoadParkingByPlateToFinishForm(Plate);
+            } catch
             {
                 return;
             }
-
-            string Plate = grid_parking.CurrentRow.Cells["Plate"].Value.ToString();
-            cbx_plate.SelectedValue = Plate;
-            LoadParkingByPlateToFinishForm(Plate);
         }
 
 
         private void LoadParkingByPlateToFinishForm(string plate)
         {
             parking = parking.LoadParkingByPlate(plate);
-            if (parking.Status == "Desistencia")
+            if (parking.Status == "DESISTENCIA" || parking.Status == "FINALIZADO")
             {
                 btn_finishParking.Enabled = false;
                 btn_cancelParking.Text = "Retorno";
@@ -312,8 +362,6 @@ namespace ParkingWFP.View
                 btn_finishParking.Enabled = true;
                 btn_cancelParking.Text = "Desistência";
             }
-            
-            cbx_parkingId.SelectedValue = parking.IdParking;
             tbx_ModelDescription.Text = vehicleModel.LoadVehicleModelById(parking.VehicleModel).Model;
             tbx_categoryDescription.Text = vehicleCategory.LoadCategoryById(parking.VehicleCategory).Category;
             tbx_colorDescription.Text = vehicleColor.LoadColorById(parking.VehicleColor).Color;
@@ -335,14 +383,18 @@ namespace ParkingWFP.View
             string msg = "Tem certeza que deseja efetuar a desistência?";
             if (MessageBox.Show(msg, "Confirmação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                parking.FinalizedAt = default(DateTime);
                 parking.CanceledAt = DateTime.Now;
-                parking.Status = "Desistencia";
+                parking.Status = "DESISTENCIA";
+                parking.RegisteredBy = user.IdUser;
+                parking.TotalValue = 0.0;
 
                 if (parking.UpdateParking(parking))
                 {
                     MessageBox.Show("Operação concluida");
                     ClearFinishParkingForm();
                     PopulateGrid();
+                    cbx_plate.Focus();
                 }
                 else
                     MessageBox.Show("ERRO: Problema ao executar operação no banco de dados");
@@ -354,13 +406,18 @@ namespace ParkingWFP.View
             string msg = "Tem certeza que deseja efetuar o retorno?";
             if (MessageBox.Show(msg, "Confirmação", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                parking.Status = "Em Aberto";
+                parking.Status = "EM ABERTO";
+                parking.RegisteredBy = user.IdUser;
+                parking.FinalizedAt = default(DateTime);
+                parking.CanceledAt = default(DateTime);
+                parking.TotalValue = 0.0;
 
                 if (parking.UpdateParking(parking))
                 {
                     MessageBox.Show("Operação concluida");
                     ClearFinishParkingForm();
                     PopulateGrid();
+                    cbx_plate.Focus();
                 }
                 else
                     MessageBox.Show("ERRO: Problema ao executar operação no banco de dados");
@@ -378,7 +435,7 @@ namespace ParkingWFP.View
                 return;
             }
 
-            if (parking.Status == "Desistencia")
+            if (parking.Status == "DESISTENCIA" || parking.Status == "FINALIZADO")
             {
                 RestartParking();
             }
@@ -397,6 +454,9 @@ namespace ParkingWFP.View
             }
 
             parking = parking.LoadParkingByPlate(cbx_plate.SelectedValue.ToString());
+            parking.RegisteredBy = user.IdUser;
+            parking.CanceledAt = default(DateTime);
+
             using (var finishForm = new FinishParking())
             {
                 finishForm.parking = parking;
@@ -405,6 +465,7 @@ namespace ParkingWFP.View
 
             ClearFinishParkingForm();
             PopulateGrid();
+            cbx_plate.Focus();
         }
 
         private void btn_clearFinishForm_Click(object sender, EventArgs e)
@@ -418,7 +479,8 @@ namespace ParkingWFP.View
             {
                 return;
             }
-            if (parking.ExistsParkingStarted()) { 
+            if (parking.ExistsParkingStarted())
+            {
                 string msg = "Existem estacionamentos não finalizados, tem certeza que deseja excluir?";
                 if (MessageBox.Show(msg, "Confirmação", MessageBoxButtons.YesNo) == DialogResult.No)
                 {
@@ -427,7 +489,7 @@ namespace ParkingWFP.View
             }
 
             bool admin = false;
-            using (var loginForm = new Login())
+            using (var loginForm = new AdminLogin())
             {
                 loginForm.ShowDialog();
                 admin = loginForm.isAdmin;
@@ -437,7 +499,6 @@ namespace ParkingWFP.View
             {
                 if (parking.TruncateParking())
                 {
-                    MessageBox.Show("Operação concluída");
                     Clear();
                 }
                 else
@@ -447,15 +508,101 @@ namespace ParkingWFP.View
 
         private void btn_testPrinterConnection_Click(object sender, EventArgs e)
         {
-            TestPrinterConnection();
+            string status = printerControl.TestPrinterConnection();
+            MessageBox.Show(status);
         }
 
         private void btn_report_Click(object sender, EventArgs e)
         {
-            using (var reportForm = new Report())
+            bool admin = false;
+            using (var loginForm = new AdminLogin())
             {
-                reportForm.ShowDialog();
+                loginForm.ShowDialog();
+                admin = loginForm.isAdmin;
             }
+
+            if (admin)
+            {
+                using (var reportForm = new Report())
+                {
+                    reportForm.ShowDialog();
+                }
+            }
+        }
+
+        private void tbx_filter_TextChanged(object sender, EventArgs e)
+        {
+            PopulateGrid();
+        }
+
+        private void tbx_plate_Validating(object sender, CancelEventArgs e)
+        {
+            if(String.IsNullOrWhiteSpace(tbx_plate.Text) == false)
+            {
+                if (parking.ExistsParkingPlate(tbx_plate.Text.Trim()))
+                {
+                    MessageBox.Show($"Placa já cadastrada");
+                    tbx_plate.Focus();
+                }
+            }
+        }
+
+        private void Dashboard_Shown(object sender, EventArgs e)
+        {
+            printer = printer.LoadPrinter();
+            printerControl.SetupPrinterModel();
+            printerControl.SetupPrinterConnection();
+            Clear();
+        }
+
+        private void btn_finishParking_Enter(object sender, EventArgs e)
+        {
+            btn_finishParking.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_finishParking_Leave(object sender, EventArgs e)
+        {
+            btn_finishParking.BackColor = System.Drawing.Color.FromArgb(0, 112, 204);
+        }
+
+        private void btn_cancelParking_Enter(object sender, EventArgs e)
+        {
+            btn_cancelParking.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_cancelParking_Leave(object sender, EventArgs e)
+        {
+            btn_cancelParking.BackColor = System.Drawing.Color.FromArgb(110, 170, 250);
+        }
+
+        private void btn_clearFinishForm_Enter(object sender, EventArgs e)
+        {
+            btn_clearFinishForm.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_clearFinishForm_Leave(object sender, EventArgs e)
+        {
+            btn_clearFinishForm.BackColor = System.Drawing.Color.FromArgb(110, 170, 250);
+        }
+
+        private void btn_startParking_Enter(object sender, EventArgs e)
+        {
+            btn_startParking.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_startParking_Leave(object sender, EventArgs e)
+        {
+            btn_startParking.BackColor = System.Drawing.Color.FromArgb(0, 112, 204);
+        }
+
+        private void btn_clearStartForm_Enter(object sender, EventArgs e)
+        {
+            btn_clearStartForm.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_clearStartForm_Leave(object sender, EventArgs e)
+        {
+            btn_clearStartForm.BackColor = System.Drawing.Color.FromArgb(110, 170, 250);
         }
     }
 }

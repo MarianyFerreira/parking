@@ -35,7 +35,9 @@ namespace ParkingWFP.Model
                 using (var db = new ParkingContext())
                 {
                     return db.VehicleColor.Where(
-                        dbVehicleColor => dbVehicleColor.Color.Contains(color)).ToList();
+                        dbVehicleColor =>
+                            dbVehicleColor.Color.Contains(color)
+                    ).ToList();
                 }
             }
             catch (Exception)

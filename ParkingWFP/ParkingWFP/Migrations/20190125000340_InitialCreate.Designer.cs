@@ -10,8 +10,8 @@ using ParkingWFP.Model;
 namespace ParkingWFP.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    [Migration("20181030184055_Add Printer")]
-    partial class AddPrinter
+    [Migration("20190125000340_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,45 @@ namespace ParkingWFP.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("ParkingWFP.Model.Parking", b =>
+                {
+                    b.Property<int>("IdParking")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CanceledAt");
+
+                    b.Property<string>("Code")
+                        .IsRequired();
+
+                    b.Property<double>("Discount");
+
+                    b.Property<DateTime>("FinalizedAt");
+
+                    b.Property<double>("Increase");
+
+                    b.Property<string>("Plate")
+                        .IsRequired();
+
+                    b.Property<int>("RegisteredBy");
+
+                    b.Property<DateTime>("StartedAt");
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<double>("TotalValue");
+
+                    b.Property<int>("VehicleCategory");
+
+                    b.Property<int>("VehicleColor");
+
+                    b.Property<int>("VehicleModel");
+
+                    b.HasKey("IdParking");
+
+                    b.ToTable("Parking");
+                });
 
             modelBuilder.Entity("ParkingWFP.Model.Printer", b =>
                 {
@@ -127,6 +166,8 @@ namespace ParkingWFP.Migrations
                 {
                     b.Property<int>("IdVehicleModel")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategorySuggestion");
 
                     b.Property<DateTime>("CreatedAt");
 

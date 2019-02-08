@@ -2,31 +2,31 @@
 *                       Copyright © 2018 MYF Sotwares. All rights reserved. 
 * *********************************************************************************************** */
 
-using ParkingWFP.Model;
 using System;
 using System.Windows.Forms;
+using ParkingWFP.Model;
 
 namespace ParkingWFP.View.Access
 {
-    public partial class Login : Form
+    public partial class AdminLogin : Form
     {
         public User user = new User();
         public bool isAdmin = false;
 
-        public Login()
+        public AdminLogin()
         {
             InitializeComponent();
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
-            cbx_users.DataSource = user.LoadUsersToList();
+            cbx_users.DataSource = user.LoadAdminUsersToList();
             cbx_users.DisplayMember = "Username";
             cbx_users.ValueMember = "Username";
             cbx_users.SelectedIndex = 0;
         }
 
-        private void LoadUser()
+        private void cbx_users_SelectedValueChanged(object sender, EventArgs e)
         {
             var selected = cbx_users.SelectedValue;
             if (selected == null || selected.GetType() == typeof(User))
@@ -35,10 +35,6 @@ namespace ParkingWFP.View.Access
             }
 
             user = user.LoadUserByUsername(selected.ToString());
-        }
-        private void cbx_users_SelectedValueChanged(object sender, EventArgs e)
-        {
-            LoadUser();
         }
 
         public bool isValidUser(User user)
@@ -59,9 +55,9 @@ namespace ParkingWFP.View.Access
             return true;
         }
 
+
         private void btn_login_Click(object sender, EventArgs e)
         {
-            LoadUser();
             if (isValidUser(user))
             {
                 isAdmin = true;
@@ -75,7 +71,6 @@ namespace ParkingWFP.View.Access
 
             if ((Keys)e.KeyChar == Keys.Enter)
             {
-                LoadUser();
                 if (isValidUser(user))
                 {
                     isAdmin = true;
@@ -83,11 +78,6 @@ namespace ParkingWFP.View.Access
                 }
                 return;
             }
-        }
-
-        private void btn_close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
     }
 }

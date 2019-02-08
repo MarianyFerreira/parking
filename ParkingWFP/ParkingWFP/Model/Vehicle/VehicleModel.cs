@@ -103,6 +103,29 @@ namespace ParkingWFP.Model
             }
         }
 
+        public VehicleModel LoadVehicleModelByModel(string model)
+        {
+            try
+            {
+                using (var db = new ParkingContext())
+                {
+                    return db.VehicleModel.Where(dbVehicleModel =>
+                        dbVehicleModel.Model == model
+                    ).FirstOrDefault();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "Não foi possível carregar o modelo usando o código",
+                    "Atenção",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error
+                );
+                throw;
+            }
+        }
+
         public bool ExistsVehicleModel(string model)
         {
             try

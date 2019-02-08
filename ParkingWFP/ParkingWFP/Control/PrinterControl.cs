@@ -52,6 +52,8 @@ namespace ParkingWFP.Control
                 }
                 return;
             }
+
+            MP32.ComandoTX("\x1B\x61\x0", 3);
             foreach (string line in text)
             {
                 PrintText(Bold, Expanded, Font, Italic, Underline, line);
@@ -99,10 +101,10 @@ namespace ParkingWFP.Control
 
         /* PRINT -------------------------------------------------------------------------------- */
 
-        public void PrintStartParkingBody(string Category, string Color, string IdParking,
+        public void PrintStartParkingBody(string Category, string Color, string Code,
             string Model, string Plate, string StartedAt)
         {
-            PrintCentralizedText(1, 1, 2, 0, 0, "N: " + IdParking);
+            PrintCentralizedText(1, 1, 2, 0, 0, "N: " + Code);
             PrintBreakLine();
             PrintBreakLine();
 
@@ -124,6 +126,7 @@ namespace ParkingWFP.Control
             PrintBreakLine();
             PrintBreakLine();
 
+            MP32.ComandoTX("\x1B\x61\x2", 3);
             PrintText(1, 1, 2, 0, 0, Plate);
             PrintBreakLine();
             PrintText(1, 1, 2, 0, 0, Model);
@@ -133,6 +136,7 @@ namespace ParkingWFP.Control
 
             PrintText(1, 0, 1, 0, 0, StartedAt);
             PrintBreakLine();
+            MP32.ComandoTX("\x1B\x61\x0", 3);
         }
 
         public void PrintStartParking(Parking parking, string Category, string Color, string Model)
@@ -140,14 +144,16 @@ namespace ParkingWFP.Control
             printer = printer.LoadPrinter();
             SetupPrinterModel();
             SetupPrinterConnection();
-            string IdParking = parking.IdParking.ToString();
+            string Code = parking.Code.ToString();
             string StartedAt = parking.StartedAt.ToString();
             string Plate = parking.Plate;
+
+
 
             PrintMultilineText(0, true, 0, 1, 0, 0, printer.Header);
             PrintBreakLine();
 
-            PrintStartParkingBody(Category, Color, IdParking, Model, Plate, StartedAt);
+            PrintStartParkingBody(Category, Color, Code, Model, Plate, StartedAt);
             PrintBreakLine();
             PrintBreakLine();
 

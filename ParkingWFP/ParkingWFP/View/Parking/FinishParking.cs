@@ -4,6 +4,7 @@
 
 using ParkingWFP.Model;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ParkingWFP.View
@@ -13,6 +14,8 @@ namespace ParkingWFP.View
 
         public Parking parking = new Parking();
         VehicleCategory vehicleCategory = new VehicleCategory();
+        VehicleModel vehicleModel = new VehicleModel();
+        VehicleColor vehicleColor = new VehicleColor();
 
 
         public FinishParking()
@@ -27,7 +30,7 @@ namespace ParkingWFP.View
             int comman = 44;
             char key = e.KeyChar;
 
-            if (key == comman && tbx_value.Text.IndexOf('.') != -1)
+            if (key == comman && lbl_value.Text.IndexOf('.') != -1)
             {
                 e.Handled = true;
                 return;
@@ -52,30 +55,51 @@ namespace ParkingWFP.View
             CheckKeyPress(e);
         }
 
-        private double CalculeParkingValue(DateTime now)
+        private void CalculeParkingPermanenceTimeAndValues()
         {
-            double hours = Math.Ceiling((now - parking.StartedAt).TotalHours);
-            return hours * vehicleCategory.Value;
+            vehicleCategory = vehicleCategory.LoadCategoryById(parking.VehicleCategory);
+
+            DateTime now = DateTime.Now;
+            parking.FinalizedAt = now;
+
+            var difference = now.Subtract(parking.StartedAt);
+
+            var minutes = difference.Minutes;
+            var hours = difference.Hours;
+            lbl_permanenceTime.Text = $"{hours} hora(s) {minutes} minuto(s)";
+
+            var totalValue = 0.0;
+            if (hours == 0)
+            {
+                totalValue = 1 * vehicleCategory.Value;
+            } else if (minutes <= vehicleCategory.Tolerance)
+            {
+                totalValue = hours * vehicleCategory.Value;
+            } else
+            {
+                totalValue = (hours + 1) * vehicleCategory.Value;
+            }
+
+            parking.TotalValue = totalValue;
+            
+            lbl_value.Text = totalValue.ToString("n2");
+            tbx_valueReceived.Text = totalValue.ToString("n2");
         }
 
         private void FinishParking_Load(object sender, System.EventArgs e)
         {
-            vehicleCategory = vehicleCategory.LoadCategoryById(parking.VehicleCategory);
-            DateTime now = DateTime.Now;
+            CalculeParkingPermanenceTimeAndValues();
 
-            tbx_plateDescription.Text = parking.Plate;
-            tbx_idParkingDescription.Text = parking.IdParking.ToString();
-            tbx_startDescription.Text = parking.StartedAt.ToString();
+            lbl_plateDescription.Text = parking.Plate;
+            lbl_idParkingDescription.Text = parking.Code.ToString();
+            lbl_modelDescription.Text = vehicleModel.LoadVehicleModelById(parking.VehicleModel).Model;
+            lbl_categoryDescription.Text = vehicleCategory.LoadCategoryById(parking.VehicleCategory).Category;
+            lbl_colorDescription.Text = vehicleColor.LoadColorById(parking.VehicleColor).Color;
+            lbl_startDescription.Text = parking.StartedAt.ToString("HH:mm");
 
-            parking.FinalizedAt = now;
-            tbx_finishDescription.Text = parking.FinalizedAt.ToString();
-            
-            tbx_permanenceTime.Text = now.Subtract(parking.StartedAt).ToString();
+            lbl_finishDescription.Text = parking.FinalizedAt.ToString("HH:mm");
 
-            parking.TotalValue = CalculeParkingValue(now);
-
-            tbx_value.Text = parking.TotalValue.ToString();
-            tbx_valueReceived.Text = parking.TotalValue.ToString();
+            tbx_valueReceived.Focus();
         }
 
         private void btn_cancelParking_Click(object sender, System.EventArgs e)
@@ -85,47 +109,66 @@ namespace ParkingWFP.View
 
         private bool isValidFinalization()
         {
-            double value = Convert.ToDouble(tbx_value.Text);
-            double discount = Convert.ToDouble(tbx_discount.Text);
-            double valueReceived = Convert.ToDouble(tbx_valueReceived.Text);
-            double overplus = Convert.ToDouble(tbx_overplus.Text);
+            double discount = 0.0;
+            double increase = 0.0;
+            double valueReceived = 0.0;
+            double value = 0.0;
+            double overplus = 0.0;
+
+            if (String.IsNullOrWhiteSpace(tbx_discount.Text) == false &&
+                Convert.ToDouble(tbx_discount.Text) > 0)
+                discount = Convert.ToDouble(tbx_discount.Text);
+            if (String.IsNullOrWhiteSpace(tbx_increase.Text) == false &&
+                Convert.ToDouble(tbx_increase.Text) > 0)
+                increase = Convert.ToDouble(tbx_increase.Text);
+            if (String.IsNullOrWhiteSpace(tbx_valueReceived.Text) == false &&
+                Convert.ToDouble(tbx_valueReceived.Text) > 0)
+                valueReceived = Convert.ToDouble(tbx_valueReceived.Text);
+            if (String.IsNullOrWhiteSpace(lbl_value.Text) == false &&
+                Convert.ToDouble(lbl_value.Text) > 0)
+                value = Convert.ToDouble(lbl_value.Text);
+            if (String.IsNullOrWhiteSpace(tbx_overplus.Text) == false &&
+                    Convert.ToDouble(tbx_overplus.Text) > 0)
+                overplus = Convert.ToDouble(tbx_overplus.Text);
 
             if (valueReceived < value)
             {
-                MessageBox.Show("Valor é maior do que valor recebido");
+                MessageBox.Show("Total a ser cobrado é maior do que o valor recebido");
                 return false;
             }
 
-            if (discount > value)
-            {
-                MessageBox.Show("O desconto é maior do que o valor");
-                return false;
-            }
-
-            if (overplus < 0)
-            {
-                MessageBox.Show("O troco não pode ser negativo");
-                return false;
-            }
-
+            parking.Increase = increase;
+            parking.Discount = discount;
+            parking.TotalValue = value;
             return true;
 
         }
 
-        private double CalculeCurrentTotalValue()
+        private void CalculeCurrentValues()
         {
-            if (string.IsNullOrWhiteSpace(tbx_discount.Text))
-            {
-                tbx_discount.Text = "0,00";
-            }
-            if (string.IsNullOrWhiteSpace(tbx_increase.Text))
-            {
-                tbx_increase.Text = "0,00";
-            }
+            double discount = 0.0;
+            double increase = 0.0;
+            double valueReceived = 0.0;
+            double value = 0.0;
+            double overplus = 0.0;
 
-            double discount = Convert.ToDouble(tbx_discount.Text);
-            double increase = Convert.ToDouble(tbx_increase.Text);
-            return parking.TotalValue + increase - discount;
+            if (String.IsNullOrWhiteSpace(tbx_discount.Text) == false &&
+                Convert.ToDouble(tbx_discount.Text) > 0.0)
+                discount = Convert.ToDouble(tbx_discount.Text);
+            if (String.IsNullOrWhiteSpace(tbx_increase.Text) == false &&
+                Convert.ToDouble(tbx_increase.Text) > 0.0)
+                increase = Convert.ToDouble(tbx_increase.Text);
+            if (String.IsNullOrWhiteSpace(tbx_valueReceived.Text) == false &&
+                Convert.ToDouble(tbx_valueReceived.Text) > 0.0)
+                valueReceived = Convert.ToDouble(tbx_valueReceived.Text);
+            if (String.IsNullOrWhiteSpace(tbx_valueReceived.Text) == false &&
+                Convert.ToDouble(tbx_valueReceived.Text) > 0.0)
+                valueReceived = Convert.ToDouble(tbx_valueReceived.Text);
+
+            value = parking.TotalValue + increase - discount;
+            overplus = valueReceived - value;
+            lbl_value.Text = value.ToString("n2");
+            tbx_overplus.Text = overplus.ToString("n2");
         }
 
         private void btn_finishParking_Click(object sender, EventArgs e)
@@ -134,14 +177,10 @@ namespace ParkingWFP.View
             {
                 return;
             }
-            parking.Increase = Convert.ToDouble(tbx_increase.Text);
-            parking.Discount = Convert.ToDouble(tbx_discount.Text);
-            parking.TotalValue = CalculeCurrentTotalValue();
-            parking.FinalizedAt = DateTime.Now;
-            parking.Status = "Finalizado";
+            CalculeCurrentValues();
+            parking.Status = "FINALIZADO";
             if (parking.UpdateParking(parking))
             {
-                MessageBox.Show("Operação concluida, imprimindo comprovante");
                 Close();
             }
             else
@@ -156,36 +195,37 @@ namespace ParkingWFP.View
 
         private void tbx_discount_TextChanged(object sender, EventArgs e)
         {
-            tbx_value.Text = CalculeCurrentTotalValue().ToString();
+            CalculeCurrentValues();
         }
 
         private void tbx_increase_TextChanged(object sender, EventArgs e)
         {
-            tbx_value.Text = CalculeCurrentTotalValue().ToString();
-        }
-
-        private void tbx_value_TextChanged(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(tbx_value.Text))
-            {
-                tbx_value.Text = "0,00";
-            }
-
-            double value = Convert.ToDouble(tbx_value.Text);
-            double valueReceived = Convert.ToDouble(tbx_valueReceived.Text);
-            tbx_overplus.Text = (valueReceived - value).ToString();
+            CalculeCurrentValues();
         }
 
         private void tbx_valueReceived_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(tbx_valueReceived.Text))
-            {
-                tbx_valueReceived.Text = "0,00";
-            }
+            CalculeCurrentValues();
+        }
 
-            double value = Convert.ToDouble(tbx_value.Text);
-            double valueReceived = Convert.ToDouble(tbx_valueReceived.Text);
-            tbx_overplus.Text = (valueReceived - value).ToString();
+        private void btn_finishParking_Enter(object sender, EventArgs e)
+        {
+            btn_finishParking.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_finishParking_Leave(object sender, EventArgs e)
+        {
+            btn_finishParking.BackColor = System.Drawing.Color.FromArgb(0, 112, 204);
+        }
+
+        private void btn_cancelParking_Enter(object sender, EventArgs e)
+        {
+            btn_cancelParking.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void btn_cancelParking_Leave(object sender, EventArgs e)
+        {
+            btn_cancelParking.BackColor = System.Drawing.Color.FromArgb(110, 170, 250);
         }
     }
 }
